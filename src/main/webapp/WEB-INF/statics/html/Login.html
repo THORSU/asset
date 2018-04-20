@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+<div data-role="page" class="my_login">
+    <div data-role="content" class="ui-content">
+        <form>
+            <div class="my_input">
+                <label for="username"></label>
+                <input type="text" maxlength="11" autocomplete="off" placeholder="请输入账号" id="username">
+                <span id="loginTip">&nbsp</span>
+            </div>
+            <div class="my_input">
+                <label for="password"></label>
+                <input type="password" class="input" maxlength="16" autocomplete="off" placeholder="请输入密码" id="password">
+                <span id="passwordTip">&nbsp</span>
+            </div>
+            <div class="my_button">
+                <input type="button" value="登录" data-inline="true" onclick="Login()" data-transition="slide">
+                <input type="button" value="注册" data-inline="true" onclick="window.location='SignUp.html'">
+            </div>
+        </form>
+    </div>
+</div>
+<div id="my_footer">
+</div>
+
+<script type="text/javascript">
+    function Login() {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        $.ajax({
+            type:"post",
+            url:"/asset/teacherLogin.form?username="+username.trim()+"&password="+password.trim(),
+            dataType:"html",
+            success:function (msg) {
+                switch (msg){
+                    case "login success":
+                        // window.location.href = 'FirstPage.html';
+                        alert("login success")
+                        break;
+                    case "login failure":
+                        alert("用户名或者密码错误");
+                        break;
+                    default:
+                        alert("输入有误");
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

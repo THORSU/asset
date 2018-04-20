@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="asset.mapper.DeviceMapper">
+    <!--查询设备-->
+    <select id="getDevice" parameterType="asset.pojo.DeviceForm" resultType="asset.pojo.DeviceForm">
+        SELECT * FROM `DeviceForm` WHERE deviceName=#{deviceName}
+    </select>
+    <!--更改设备状态-->
+    <update id="modifyStatus" parameterType="asset.pojo.DeviceForm">
+        UPDATE `DeviceForm` SET useStatus = #{useStatus} WHERE deviceName= #{deviceName}
+    </update>
+    <!--申请设备-->
+    <insert id="applyDevice" parameterType="asset.pojo.ApplyForm" >
+        INSERT INTO `ApplyForm` (id,unitId,deviceId,applyName,deviceName,unitName)
+        VALUES (#{id},#{unitId},#{deviceId},#{applyName},#{deviceName},#{unitName})
+    </insert>
+    <!--报修设备-->
+    <insert id="repairDevice" parameterType="asset.pojo.RepairForm">
+        INSERT INTO `RepairForm`(id,unitId,deviceId,applyName,deviceName,unitName)
+        VALUES (#{id},#{unitId},#{deviceId},#{applyName},#{deviceName},#{unitName})
+    </insert>
+    <!--退还设备-->
+    <insert id="refundDevice" parameterType="asset.pojo.RefundForm">
+        INSERT INTO `RefundForm` (id,unitId,deviceId,applyName,deviceName,unitName)
+        VALUES (#{id},#{unitId},#{deviceId},#{applyName},#{deviceName},#{unitName})
+    </insert>
+    <!--查询申请-->
+    <select id="getApplyForm" parameterType="asset.pojo.ApplyForm" resultType="asset.pojo.ApplyForm">
+        SELECT * FROM `ApplyForm` WHERE applyName=#{applyName}
+    </select>
+    <!--查询报修-->
+    <select id="getRepairForm" parameterType="asset.pojo.RepairForm" resultType="asset.pojo.RepairForm">
+        SELECT * FROM `RepairForm` WHERE applyName=#{applyName}
+    </select>
+    <!--查询退还-->
+    <select id="getRefundForm" parameterType="asset.pojo.RefundForm" resultType="asset.pojo.RefundForm">
+        SELECT * FROM `RefundForm` WHERE applyName=#{applyName}
+    </select>
+    <!--添加申请的审核人-->
+    <insert id="addApplyAuditName" parameterType="asset.pojo.ApplyForm">
+        INSERT INTO `ApplyForm` (auditName,auditTime)
+        VALUES (#{auditName},#{auditTime})
+    </insert>
+    <!--添加报修的审核人-->
+    <insert id="addRepairAuditName" parameterType="asset.pojo.RepairForm">
+        INSERT INTO `RepairForm` (auditName,auditTime)
+        VALUES (#{auditName},#{auditTime})
+    </insert>
+    <!--添加退还的审核人-->
+    <insert id="addRefundAuditName" parameterType="asset.pojo.RefundForm">
+        INSERT INTO `RefundForm` (auditName,auditTime)
+        VALUES (#{auditName},#{auditTime})
+    </insert>
+    <!--设备入库-->
+    <insert id="addDevice" parameterType="asset.pojo.DeviceForm">
+        INSERT INTO `DeviceForm` (deviceId,deviceName,useStatus,storageTime)
+        VALUES (#{deviceId},#{deviceName}，#{useStatus}，#{storageTime})
+    </insert>
+</mapper>

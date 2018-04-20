@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="asset.mapper.UnitMapper">
+<!--<resultMap id="UnitInfoResult" type="asset.pojo.Unit">-->
+    <!--<result column="unitId" property="unitId"/>-->
+    <!--<result column="unitName" property="unitName"/>-->
+<!--</resultMap>-->
+    <select id="getUnitId" parameterType="asset.pojo.Unit" resultType="asset.pojo.Unit">
+        SELECT * FROM `Unit` WHERE unitName=#{unitName}
+    </select>
+    <select id="getUnitName" parameterType="asset.pojo.Unit" resultType="asset.pojo.Unit">
+        SELECT * FROM `Unit` WHERE unitName=#{unitName}
+    </select>
+</mapper>

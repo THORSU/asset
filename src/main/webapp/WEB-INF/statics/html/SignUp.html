@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+<div data-role="page">
+    <div data-role="header">
+        <h1>欢迎注册</h1>
+    </div>
+    <div data-role="content">
+        <form>
+            <div class="my_re_input">
+                <label for="username"></label>
+                <input type="text" class="input" maxlength="11"onblur="checkUser(this.id)" placeholder="请输入账号" id="username">
+            </div>
+            <div class="my_re_input">
+                <label for="password"></label>
+                <input type="password" class="input" maxlength="16" autocomplete="off" placeholder="请输入密码" id="password">
+            </div>
+            <div class="my_re_input">
+                <label for="unit"></label>
+                <input type="text" class="input" maxlength="16" autocomplete="off" placeholder="请输入单位名" id="unit">
+            </div>
+            <div class="my_re_input my_code">
+                <label for="vcode"></label>
+                <input type="text" id="vcode" class="form-control" placeholder="请输入验证码" onblur="validateCode()"/>
+            </div>
+            <div class="my_code">
+                <span id="yanzhengma" onclick="getRandomMath(this)"></span>
+            </div>
+            <div class="my_re_button">
+                <input type="button" value="确认注册" data-inline="true" onclick="SignUp()">
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    var flag=true;
+    function validateCode() {
+        var code = $("#vcode").val();
+        if (code == _random) {
+            flag = false;
+        }
+    }
+    function checkUser(v){
+        if(v=="username") {
+            var username = $("#username").val();
+            console.log(username)
+            $.ajax({
+                type: "post",
+                url: "/asset/CheckUserName.form?username=" + username.trim(),
+                dataType: "html",
+                success: function (msg) {
+                    if (msg == "check failure") {
+                        alert("用户名已被使用！");
+                    }
+                }
+            })
+        }
+    }
+    window.onload = function() {
+        var _yanzhengma = document.getElementById("yanzhengma");
+        getRandomMath(_yanzhengma);
+        var _random = null;
+        var loginform = document.getElementById("loginform");
+        var indexVlaue = null;
+
+    }
+    //随机颜色函数
+    function getRandomColor() {
+        return '#' + (function(h) {
+            return new Array(7 - h.length).join("0") + h
+        })((Math.random() * 0x1000000 << 0).toString(16));
+    }
+    //随机数
+    var _random;
+    function getRandomMath(obj) {
+        _random = Math.floor(Math.random() * (99999 - 10000) + 10000);
+        var _arryanzhengma = (String)(_random).split("");
+        obj.innerHTML = "";
+        for (var i = 0; i < _arryanzhengma.length; i++) {
+            //追加的形式添加
+            var _nodeChild = document.createElement("i");
+            _nodeChild.style.color = getRandomColor();
+            _nodeChild.innerHTML = _arryanzhengma[i] + "&nbsp;";
+            obj.appendChild(_nodeChild);
+        }
+        // console.log(_random)
+    }
+    function SignUp() {
+        var username = $("#username").val();
+        console.log(username)
+        var password = $("#password").val();
+        var unit = $("#unit").val();
+        if(flag!=true){
+            if (username==""||password==""||unit==""){
+                alert("填写不能为空");
+            }else {
+                $.ajax({
+                    type:"post",
+                    url:"/asset/SignUp.form?username="+username.trim()+"&password="+password.trim()+"&unit="+unit.trim(),
+                    dataType:"html",
+                    success:function (msg) {
+                        switch (msg){
+                            case "search unitId fail":
+                                alert("单位名错误");
+                                break;
+                            case "SignUp success":
+                                var con;
+                                con = confirm("注册成功，请登录");
+                                if (con == true) {
+                                    window.location.href = 'Login.html';
+                                }
+                                break;
+                            case "SignUp fail":
+                                alert("注册失败");
+                                break;
+                        }
+                    }
+                })
+            }
+        }else{
+            alert("验证码错误");
+        }
+    }
+
+</script>
+</body>
+</html>

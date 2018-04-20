@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="asset.mapper.UserMapper">
+
+	<resultMap id="UserInfoResult" type="asset.pojo.Teacher" >
+	    <id column="id" property="id"/>
+		<result property="name" column="name"/>
+		<result property="password" column="password"/>
+		<result property="unitId" column="unitId"/>
+	</resultMap>
+	<!--老师登录-->
+    <select id="teacherLogin" parameterType="asset.pojo.Teacher" resultMap="UserInfoResult">
+        SELECT * FROM `Teacher` WHERE name=#{name}
+    </select>
+
+	<select id="checkUserName" parameterType="asset.pojo.Teacher" resultMap="UserInfoResult">
+		SELECT * FROM `Teacher` WHERE name=#{name}
+	</select>
+	<!--老师注册-->
+	<insert id="signUp" parameterType="asset.pojo.Teacher" >
+		INSERT INTO `Teacher` (id,name,password,unitId) VALUES (#{id},#{name},#{password},#{unitId})
+	</insert>
+	<!--业务管理员登录-->
+	<select id="senManagerLogin" parameterType="asset.pojo.SenManager" resultType="asset.pojo.SenManager">
+		SELECT * FROM `SenManager` WHERE name=#{name}
+	</select>
+	<!--添加业务管理员-->
+	<insert id="addSenManger" parameterType="asset.pojo.SenManager">
+		INSERT INTO `SenManager` (id,name,password) VALUES (#{id},#{name},#{password})
+	</insert>
+	<!--删除业务管理员-->
+	<delete id="delSenManger" parameterType="asset.pojo.SenManager">
+		DELETE FROM `SenManager` WHERE name=#{name}
+	</delete>
+</mapper> 
