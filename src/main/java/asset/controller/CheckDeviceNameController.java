@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 /**
  * Author:QuincySu
@@ -31,8 +32,8 @@ public class CheckDeviceNameController {
         logger.info(deviceName);
         deviceForm = new DeviceForm();
         deviceForm.setDeviceName(deviceName);
-        DeviceForm deviceForm1=deviceService.getDevice(deviceForm);
-        if (deviceForm1==null){
+        List<DeviceForm> deviceFormList=deviceService.getDeviceList(deviceForm);
+        if (deviceFormList.size()==0){
             return "check failure";
         }
         else{

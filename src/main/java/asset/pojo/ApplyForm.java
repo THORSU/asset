@@ -16,13 +16,22 @@ public class ApplyForm {
     private String unitId;
     //单位名
     private String unitName;
+    //申请时间
+    private String applyTime;
     //申请人
     private String applyName;
     //审核人
     private String auditName;
-
     //审核时间
     private String auditTime;
+
+    public String getApplyTime() {
+        return applyTime;
+    }
+
+    public void setApplyTime(String applyTime) {
+        this.applyTime = applyTime;
+    }
 
     public String getAuditTime() {
         return auditTime;

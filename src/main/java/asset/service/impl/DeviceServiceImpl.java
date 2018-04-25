@@ -9,6 +9,8 @@ import asset.service.IDeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Author:QuincySu
  * Date:Created in 2018/3/26
@@ -19,8 +21,13 @@ public class DeviceServiceImpl implements IDeviceService {
     private DeviceMapper deviceMapper;
 
     @Override
-    public DeviceForm getDevice(DeviceForm deviceForm) {
-        return deviceMapper.getDevice(deviceForm);
+    public DeviceForm getDevice(String deviceId) {
+        return deviceMapper.getDevice(deviceId);
+    }
+
+    @Override
+    public List<DeviceForm> getDeviceList(DeviceForm deviceForm) {
+        return deviceMapper.getDeviceList(deviceForm);
     }
 
     @Override

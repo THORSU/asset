@@ -5,7 +5,9 @@ import asset.pojo.DeviceForm;
 import asset.pojo.Unit;
 import asset.service.IDeviceService;
 import asset.service.IUnitService;
+import asset.utils.DataUtil;
 import asset.utils.RandomAccessUtil;
+import com.alibaba.fastjson.JSON;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 /**
  * Author:QuincySu
@@ -41,25 +44,39 @@ public class ApplyDeviceController {
 //        String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
         String unitName = new String(request.getParameter("unitName").getBytes("iso-8859-1"), "utf-8");
         String deviceName = new String(request.getParameter("deviceName").getBytes("iso-8859-1"), "utf-8");
+        applyForm = new ApplyForm();
         final Cookie[] cookies = request.getCookies();
-        String username="";
-        if (cookies!=null){
-            for (final Cookie cookie:cookies){
-                if ("username".equals(cookie.getName())){
-                    username=cookie.getValue();
+        String username = "";
+        if (cookies != null) {
+            for (final Cookie cookie : cookies) {
+                if ("username".equals(cookie.getName())) {
+                    username = cookie.getValue();
                 }
             }
         }
         deviceForm = new DeviceForm();
         deviceForm.setDeviceName(deviceName);
-        DeviceForm deviceForm1 = deviceService.getDevice(deviceForm);
-
+        DeviceForm deviceForm1=new DeviceForm();
+        List<DeviceForm> deviceFormList = deviceService.getDeviceList(deviceForm);
+        for (int i=0;i<deviceFormList.size();i++) {
+            if ("1".equals(deviceFormList.get(i).getUseStatus())) {
+                System.out.println(deviceFormList.get(i).toString());
+                deviceForm1=deviceFormList.get(i);
+            }
+//            else {
+//                return "useStatus error";
+//            }
+        }
+        System.out.println(JSON.toJSONString(deviceForm1));
+        System.out.println(deviceForm1.getDeviceId());
+        String deviceId=deviceForm1.getDeviceId();
+        applyForm.setDeviceId(deviceId);
+        applyForm.setDeviceName(deviceName);
         unit = new Unit();
         unit.setUnitName(unitName);
         Unit unit1 = unitService.getUnitId(unit);
 
-        applyForm = new ApplyForm();
-        applyForm.setDeviceName(deviceName);
+
         applyForm.setUnitName(unitName);
 
         applyForm.setApplyName(username);
@@ -67,21 +84,17 @@ public class ApplyDeviceController {
         if (unit1 != null) {
             applyForm.setUnitId(unit1.getUnitId());
         }
-        if (deviceForm1 != null) {
-            applyForm.setDeviceId(deviceForm1.getDeviceId());
-        }
         applyForm.setId(RandomAccessUtil.getRandom("Apply"));
-        if ("1".equals(deviceForm1.getUseStatus())) {
-            Integer num = deviceService.applyDevice(applyForm);
-            deviceForm.setUseStatus("3");
-            int num1=deviceService.modifyStatus(deviceForm);
-            if (num == 1 && num1 == 1) {
-                return "apply success";
-            } else {
-                return "apply fail";
-            }
+        String time= DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
+        applyForm.setApplyTime(time);
+        Integer num = deviceService.applyDevice(applyForm);
+        deviceForm1.setUseStatus("3");
+        int num1 = deviceService.modifyStatus(deviceForm1);
+        if (num == 1 && num1 == 1) {
+            return "apply success";
         } else {
-            return "useStatus error";
+            return "apply fail";
         }
+
     }
 }

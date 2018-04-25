@@ -44,8 +44,8 @@ public class ManagerController {
         String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
         //申请人
         String applyName = new String(request.getParameter("applyName").getBytes("iso-8859-1"), "utf-8");
-        //设备名
-        String deviceName = new String(request.getParameter("deviceName").getBytes("iso-8859-1"), "utf-8");
+        //todo 考虑到设备的不唯一性，此处改为设备id
+        String deviceId = new String(request.getParameter("deviceId").getBytes("iso-8859-1"), "utf-8");
         String time= DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
         applyForm.setApplyName(applyName);
         ApplyForm applyForm1=deviceService.getApplyForm(applyForm);
@@ -55,8 +55,7 @@ public class ManagerController {
         }else{
             return "apply error";
         }
-        deviceForm.setDeviceName(deviceName);
-        DeviceForm deviceForm1=deviceService.getDevice(deviceForm);
+        DeviceForm deviceForm1=deviceService.getDevice(deviceId);
         String status=deviceForm1.getUseStatus();
         if ("3"==status){
             deviceForm1.setUseStatus("0");
@@ -79,8 +78,8 @@ public class ManagerController {
         String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
         //申请人
         String applyName = new String(request.getParameter("applyName").getBytes("iso-8859-1"), "utf-8");
-        //设备名
-        String deviceName = new String(request.getParameter("deviceName").getBytes("iso-8859-1"), "utf-8");
+        //todo 考虑到设备的不唯一性，此处改为设备id
+        String deviceId = new String(request.getParameter("deviceId").getBytes("iso-8859-1"), "utf-8");
         repairForm.setApplyName(applyName);
         String time= DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
         RepairForm repairForm1=deviceService.getRepairForm(repairForm);
@@ -90,8 +89,7 @@ public class ManagerController {
         }else {
             return "apply error";
         }
-        deviceForm.setDeviceName(deviceName);
-        DeviceForm deviceForm1=deviceService.getDevice(deviceForm);
+        DeviceForm deviceForm1=deviceService.getDevice(deviceId);
         String status=deviceForm1.getUseStatus();
         if ("4"==status){
             deviceForm1.setUseStatus("2");
@@ -115,8 +113,8 @@ public class ManagerController {
         String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
         //申请人
         String applyName = new String(request.getParameter("applyName").getBytes("iso-8859-1"), "utf-8");
-        //设备名
-        String deviceName = new String(request.getParameter("deviceName").getBytes("iso-8859-1"), "utf-8");
+        //todo 考虑到设备的不唯一性，此处改为设备id
+        String deviceId = new String(request.getParameter("deviceId").getBytes("iso-8859-1"), "utf-8");
         String time= DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
         refundForm.setApplyName(applyName);
         RefundForm refundForm1=deviceService.getRefundForm(refundForm);
@@ -126,8 +124,7 @@ public class ManagerController {
         }else {
             return "apply error";
         }
-        deviceForm.setDeviceName(deviceName);
-        DeviceForm deviceForm1=deviceService.getDevice(deviceForm);
+        DeviceForm deviceForm1=deviceService.getDevice(deviceId);
         String status=deviceForm1.getUseStatus();
         if ("5"==status){
             deviceForm1.setUseStatus("1");
@@ -149,8 +146,9 @@ public class ManagerController {
     Object addDevice(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{
         String deviceName=new String(request.getParameter("deviceName").getBytes("iso-8859-1"), "utf-8");
         deviceForm.setDeviceName(deviceName);
-        String id=RandomAccessUtil.getRandom("Device");
-        deviceForm.setDeviceId(id);
+        //todo 此处考虑到设备id过于复杂，放弃UUID，该用数据库id列自增
+//        String id=RandomAccessUtil.getRandom("Device");
+//        deviceForm.setDeviceId(id);
         deviceForm.setUseStatus("1");
         String time= DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
         deviceForm.setStorageTime(time);

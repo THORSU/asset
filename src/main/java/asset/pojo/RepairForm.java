@@ -15,12 +15,22 @@ public class RepairForm {
     private String unitId;
     //单位名
     private String unitName;
+    //报修时间
+    private String repairTime;
     //申请人
     private String applyName;
     //审核人
     private String auditName;
     //审核时间
     private String auditTime;
+
+    public String getRepairTime() {
+        return repairTime;
+    }
+
+    public void setRepairTime(String repairTime) {
+        this.repairTime = repairTime;
+    }
 
     public String getAuditTime() {
         return auditTime;

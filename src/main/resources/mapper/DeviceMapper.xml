@@ -4,12 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="asset.mapper.DeviceMapper">
     <!--查询设备-->
-    <select id="getDevice" parameterType="asset.pojo.DeviceForm" resultType="asset.pojo.DeviceForm">
+    <select id="getDevice" parameterType="java.lang.String" resultType="asset.pojo.DeviceForm">
+        SELECT * FROM `DeviceForm` WHERE deviceId=#{deviceId}
+    </select>
+    <select id="getDeviceList" parameterType="asset.pojo.DeviceForm" resultType="asset.pojo.DeviceForm">
         SELECT * FROM `DeviceForm` WHERE deviceName=#{deviceName}
     </select>
     <!--更改设备状态-->
     <update id="modifyStatus" parameterType="asset.pojo.DeviceForm">
-        UPDATE `DeviceForm` SET useStatus = #{useStatus} WHERE deviceName= #{deviceName}
+        UPDATE `DeviceForm` SET useStatus = #{useStatus} WHERE deviceId= #{deviceId}
     </update>
     <!--申请设备-->
     <insert id="applyDevice" parameterType="asset.pojo.ApplyForm" >
@@ -55,7 +58,7 @@
     </insert>
     <!--设备入库-->
     <insert id="addDevice" parameterType="asset.pojo.DeviceForm">
-        INSERT INTO `DeviceForm` (deviceId,deviceName,useStatus,storageTime)
-        VALUES (#{deviceId},#{deviceName}，#{useStatus}，#{storageTime})
+        INSERT INTO `DeviceForm` (deviceName,useStatus,storageTime)
+        VALUES (#{deviceName}，#{useStatus}，#{storageTime})
     </insert>
 </mapper>

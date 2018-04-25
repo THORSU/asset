@@ -15,12 +15,22 @@ public class RefundForm {
     private String unitId;
     //单位名
     private String unitName;
+    //退还时间
+    private String refundTime;
     //申请人
     private String applyName;
     //审核人
     private String auditName;
     //审核时间
     private String auditTime;
+
+    public String getRefundTime() {
+        return refundTime;
+    }
+
+    public void setRefundTime(String refundTime) {
+        this.refundTime = refundTime;
+    }
 
     public String getAuditTime() {
         return auditTime;

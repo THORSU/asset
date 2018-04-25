@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
@@ -38,28 +39,37 @@ public class RefundDeviceController {
     @RequestMapping(value = "/refundDevice.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
     Object refundDevice(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-        String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
         String unitName = new String(request.getParameter("unitName").getBytes("iso-8859-1"), "utf-8");
         String deviceName = new String(request.getParameter("deviceName").getBytes("iso-8859-1"), "utf-8");
+        String deviceId = new String(request.getParameter("deviceId").getBytes("iso-8859-1"), "utf-8");
+        refundForm=new RefundForm();
 
-        deviceForm = new DeviceForm();
-        deviceForm.setDeviceName(deviceName);
-        DeviceForm deviceForm1 = deviceService.getDevice(deviceForm);
-
+        final Cookie[] cookies = request.getCookies();
+        String username = "";
+        if (cookies != null) {
+            for (final Cookie cookie : cookies) {
+                if ("username".equals(cookie.getName())) {
+                    username = cookie.getValue();
+                }
+            }
+        }
+//        todo 此处由于考虑到退还设备时要输入设备id，故取消此功能
+//        deviceForm = new DeviceForm();
+//        deviceForm.setDeviceName(deviceName);
+//        DeviceForm deviceForm1 = deviceService.getDevice(deviceForm);
         unit = new Unit();
         unit.setUnitName(unitName);
         Unit unit1 = unitService.getUnitId(unit);
 
-        refundForm=new RefundForm();
+
         refundForm.setDeviceName(deviceName);
         refundForm.setUnitName(unitName);
         refundForm.setApplyName(username);
         if (unit1 != null) {
             refundForm.setUnitId(unit1.getUnitId());
         }
-        if (deviceForm1 != null) {
-            refundForm.setDeviceId(deviceForm1.getDeviceId());
-        }
+        refundForm.setDeviceId(deviceId);
+        DeviceForm deviceForm1=deviceService.getDevice(deviceId);
         refundForm.setId(RandomAccessUtil.getRandom("Refund"));
         if (deviceForm1.getUseStatus() == "1") {
             Integer num = deviceService.refundDevice(refundForm);

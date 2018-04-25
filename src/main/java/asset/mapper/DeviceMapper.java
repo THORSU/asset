@@ -5,13 +5,17 @@ import asset.pojo.DeviceForm;
 import asset.pojo.RefundForm;
 import asset.pojo.RepairForm;
 
+import java.util.List;
+
 /**
  * Author:QuincySu
  * Date:Created in 2018/3/26
  */
 public interface DeviceMapper {
     //查询设备对应关系
-    public DeviceForm getDevice(DeviceForm deviceForm);
+    public DeviceForm getDevice(String deviceId);
+    //获取设备列表
+    public List<DeviceForm> getDeviceList(DeviceForm deviceForm);
     //申请设备
     public int applyDevice(ApplyForm deviceForm);
     //修改状态位
