@@ -10,10 +10,10 @@
 <div>
    <form>
        <div>
-           <div>
-               <label for="username"></label>
-               <input type="text" maxlength="10" autocomplete="off" onblur="checkUser(this.id)" placeholder="请输入用户名" id="username">
-           </div>
+           <!--<div>-->
+               <!--<label for="username"></label>-->
+               <!--<input type="text" maxlength="11" autocomplete="off" onblur="checkUser(this.id)" placeholder="请输入用户名" id="username">-->
+           <!--</div>-->
            <div>
                <label for="unitName"></label>
                <input type="text" maxlength="16" autocomplete="off" onblur="checkUnitName(this.id)" placeholder="请输入单位名" id="unitName">
@@ -29,6 +29,22 @@
    </form>
 </div>
 <script type="text/javascript">
+    // function checkUser(v){
+    //     if(v=="username") {
+    //         var username = $("#username").val();
+    //         console.log(username)
+    //         $.ajax({
+    //             type: "post",
+    //             url: "/asset/CheckUserName.form?username=" + username.trim(),
+    //             dataType: "html",
+    //             success: function (msg) {
+    //                 if (msg == "no exist") {
+    //                     alert("用户名错误！");
+    //                 }
+    //             }
+    //         })
+    //     }
+    // }
     function checkUnitName(v) {
         if (v=="unitName"){
             var unitName=$("#unitName").val();
@@ -60,12 +76,11 @@
         }
     }
     function applyDevice() {
-        var username=$("#username");
         var unitName=$("#unitName").val();
         var deviceName=$("#deviceName").val();
         $.ajax({
             type:"post",
-            url:"/asset/applyDevice.form?username="+username.trim()+"&unitName="+unitName.trim()+"&deviceName="+deviceName.trim(),
+            url:"/asset/applyDevice.form?&unitName="+unitName.trim()+"&deviceName="+deviceName.trim(),
             dataType:"html",
             success:function (msg) {
                 switch (msg){

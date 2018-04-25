@@ -29,10 +29,10 @@ public class CheckUserNameController {
         teacher=new Teacher();
         teacher.setName(username);
         Teacher res=userService.checkUserName(teacher);
-        if (res==null){
-            return "check success";
-        }else{
-            return "check failure";
+        if (res!=null){
+            return "already exist";
+        }else {
+            return "no exist";
         }
     }
 }

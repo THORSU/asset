@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
@@ -38,6 +39,10 @@ public class LoginController {
         Teacher res = userService.teacherLogin(teacher);
         System.out.println(res.getPassword());
         if (res.getPassword().equals(password)) {
+            Cookie cookie=new Cookie("username",res.getName());
+            cookie.setPath("/");
+            cookie.setMaxAge(60*60*24);
+            response.addCookie(cookie);
             return "login success";
         } else {
             return "login failure";

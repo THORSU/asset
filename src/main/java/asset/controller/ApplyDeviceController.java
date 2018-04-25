@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
@@ -37,9 +38,18 @@ public class ApplyDeviceController {
     @RequestMapping(value = "/applyDevice.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
     Object applyDevice(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-        String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
+//        String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
         String unitName = new String(request.getParameter("unitName").getBytes("iso-8859-1"), "utf-8");
         String deviceName = new String(request.getParameter("deviceName").getBytes("iso-8859-1"), "utf-8");
+        final Cookie[] cookies = request.getCookies();
+        String username="";
+        if (cookies!=null){
+            for (final Cookie cookie:cookies){
+                if ("username".equals(cookie.getName())){
+                    username=cookie.getValue();
+                }
+            }
+        }
         deviceForm = new DeviceForm();
         deviceForm.setDeviceName(deviceName);
         DeviceForm deviceForm1 = deviceService.getDevice(deviceForm);
@@ -51,6 +61,7 @@ public class ApplyDeviceController {
         applyForm = new ApplyForm();
         applyForm.setDeviceName(deviceName);
         applyForm.setUnitName(unitName);
+
         applyForm.setApplyName(username);
 
         if (unit1 != null) {
@@ -60,7 +71,7 @@ public class ApplyDeviceController {
             applyForm.setDeviceId(deviceForm1.getDeviceId());
         }
         applyForm.setId(RandomAccessUtil.getRandom("Apply"));
-        if (deviceForm1.getUseStatus() == "1") {
+        if ("1".equals(deviceForm1.getUseStatus())) {
             Integer num = deviceService.applyDevice(applyForm);
             deviceForm.setUseStatus("3");
             int num1=deviceService.modifyStatus(deviceForm);

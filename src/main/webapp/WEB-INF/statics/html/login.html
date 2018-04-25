@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>登录</title>
+    <title>教师登录</title>
     <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+    <link href="../css/login.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 <div data-role="page" class="my_login">
@@ -21,9 +22,30 @@
             </div>
             <div class="my_button">
                 <input type="button" value="登录" data-inline="true" onclick="Login()" data-transition="slide">
-                <input type="button" value="注册" data-inline="true" onclick="window.location='SignUp.html'">
+                <input type="button" value="注册" data-inline="true" onclick="window.location='signUp.html'">
             </div>
         </form>
+
+        <!--<form>-->
+            <!--<table width="202" border="0" align="center" cellpadding="05" cellspacing="0" id="logintable">-->
+                <!--<tr>-->
+                    <!--<td width="192"><div class="message">欢迎使用固定资产管理系统</div></td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td><input name="name" type="text" id="username" value="" placeholder="用户名"></td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td><input name="psd" type="password" id="password" value="" placeholder="密码"></td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td id="tip"> </td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td><input type="button" class="submit" value="登录" onclick="Login()" data-inline="true"></td>-->
+                    <!--<td><input type="button" value="注册" data-inline="true" onclick="window.location='signUp.html'"></td>-->
+                <!--</tr>-->
+            <!--</table>-->
+        <!--</form>-->
     </div>
 </div>
 <div id="my_footer">
@@ -40,7 +62,7 @@
             success:function (msg) {
                 switch (msg){
                     case "login success":
-                        // window.location.href = 'FirstPage.html';
+                        window.location.href = 'apply.html';
                         alert("login success")
                         break;
                     case "login failure":

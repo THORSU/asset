@@ -16,7 +16,7 @@
         <form>
             <div class="my_re_input">
                 <label for="username"></label>
-                <input type="text" class="input" maxlength="11"onblur="checkUser(this.id)" placeholder="请输入账号" id="username">
+                <input type="text" class="input" maxlength="11" onblur="checkUser(this.id)" placeholder="请输入账号" id="username">
             </div>
             <div class="my_re_input">
                 <label for="password"></label>
@@ -56,7 +56,7 @@
                 url: "/asset/CheckUserName.form?username=" + username.trim(),
                 dataType: "html",
                 success: function (msg) {
-                    if (msg == "check failure") {
+                    if (msg == "already exist") {
                         alert("用户名已被使用！");
                     }
                 }
@@ -114,7 +114,7 @@
                                 var con;
                                 con = confirm("注册成功，请登录");
                                 if (con == true) {
-                                    window.location.href = 'Login.html';
+                                    window.location.href = 'login.html';
                                 }
                                 break;
                             case "SignUp fail":
