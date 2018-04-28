@@ -5,6 +5,7 @@ import asset.pojo.RepairForm;
 import asset.pojo.Unit;
 import asset.service.IDeviceService;
 import asset.service.IUnitService;
+import asset.utils.DataUtil;
 import asset.utils.RandomAccessUtil;
 import com.sun.xml.internal.bind.v2.TODO;
 import org.apache.log4j.Logger;
@@ -33,7 +34,7 @@ public class RepairDeviceController {
     private IUnitService unitService;
 
     private Unit unit;
-    private DeviceForm deviceForm;
+
     private RepairForm repairForm;
 
     @RequestMapping(value = "/repairDevice.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
@@ -73,11 +74,14 @@ public class RepairDeviceController {
         repairForm.setDeviceId(deviceId);
         DeviceForm deviceForm1=deviceService.getDevice(deviceId);
 
+        String time= DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
+        repairForm.setRepairTime(time);
         repairForm.setId(RandomAccessUtil.getRandom("Repair"));
-        if (deviceForm1.getUseStatus()=="0"){
-            deviceForm.setUseStatus("4");
+        System.out.println(deviceForm1.getUseStatus());
+        if ("0".equals(deviceForm1.getUseStatus())){
+            deviceForm1.setUseStatus("4");
             //修改状态
-            int num1=deviceService.modifyStatus(deviceForm);
+            int num1=deviceService.modifyStatus(deviceForm1);
             int num=deviceService.repairDevice(repairForm);
             if (num == 1 && num1 == 1) {
                 return "apply success";
