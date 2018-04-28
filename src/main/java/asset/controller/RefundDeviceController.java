@@ -2,10 +2,10 @@ package asset.controller;
 
 import asset.pojo.DeviceForm;
 import asset.pojo.RefundForm;
-import asset.pojo.RepairForm;
 import asset.pojo.Unit;
 import asset.service.IDeviceService;
 import asset.service.IUnitService;
+import asset.utils.DataUtil;
 import asset.utils.RandomAccessUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,6 @@ public class RefundDeviceController {
     private IUnitService unitService;
 
     private Unit unit;
-    private DeviceForm deviceForm;
     private RefundForm refundForm;
 
     @RequestMapping(value = "/refundDevice.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
@@ -61,7 +60,6 @@ public class RefundDeviceController {
         unit.setUnitName(unitName);
         Unit unit1 = unitService.getUnitId(unit);
 
-
         refundForm.setDeviceName(deviceName);
         refundForm.setUnitName(unitName);
         refundForm.setApplyName(username);
@@ -71,10 +69,12 @@ public class RefundDeviceController {
         refundForm.setDeviceId(deviceId);
         DeviceForm deviceForm1=deviceService.getDevice(deviceId);
         refundForm.setId(RandomAccessUtil.getRandom("Refund"));
-        if (deviceForm1.getUseStatus() == "1") {
+        String time = DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
+        refundForm.setRefundTime(time);
+        if ("0".equals(deviceForm1.getUseStatus())) {
             Integer num = deviceService.refundDevice(refundForm);
-            deviceForm.setUseStatus("5");
-            int num1=deviceService.modifyStatus(deviceForm);
+            deviceForm1.setUseStatus("5");
+            int num1 = deviceService.modifyStatus(deviceForm1);
             if (num == 1 && num1 == 1) {
                 return "refund success";
             } else {
