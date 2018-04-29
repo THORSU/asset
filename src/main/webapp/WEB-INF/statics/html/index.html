@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../plugins/font-awesome-4.7.0/css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/index.css"/>
+		<script type="text/javascript" src="../js/index.js" ></script>
+		<script src="../js/jquery-1.10.2.min.js"></script>
+	</head>
+	<body>
+		<!--顶部工具栏-->
+		<div class="bd-header">
+			<div class="header-left">
+				<div class="logo" href="#">固定资产管理系统</div>
+			</div>
+			<div class="header-right">
+				<ul class="toolbar-list">
+					<!--<li><a href="#">系统设置</a></li>-->
+					<!--<li><a href="#">下载SDK</a></li>-->
+					<li class="user-info">
+						<a href="#"><i class="fa fa-user-circle-o"></i> <div id="uname" style="margin-top: -60px;margin-left: 27px;" >admin </div><i id="user-info-arrow" class="fa fa-caret-down"></i></a>
+						<div class="user-info-panel">
+							<span class="arrow"></span>
+							<ul>
+								<!--<li><a href="#">个人信息</a></li>-->
+								<!--<li><a href="#">修改密码</a></li>-->
+								<li><span class="line"></span></li>
+								<li><a href="login.html">退出</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--/顶部工具栏 -->
+		<div class="bd-content">
+			<div class="bd-content-nav">
+				<h3 class="nav-title">导航列表</h3>
+				<ul class="parent-list">
+					<!--教师-->
+					<li style="display: none" id="sbgl">
+						<a class="parent-list-item" href="javascript:;"><i class="fa fa-cog"></i> 设备管理<i class="fa fa-angle-down sanjiao"></i></a>
+						<ul class="son-list" style="display: block;">
+							<li><a alt="./html/apply.html" title="申请设备" href="javascript:;"><i class="fa fa-address-book"></i> 申请设备</a></li>
+							<li><a alt="pages/deptList.html" title="报修设备" href="javascript:;"><i class="fa fa-adjust"></i> 报修设备</a></li>
+							<li><a alt="pages/managerList.html" title="查看设备" href="javascript:;"><i class="fa fa-rotate-left"></i> 查看设备</a></li>
+							<li><a alt="pages/menuList.html" title="退还设备" href="javascript:;"><i class="fa fa-id-card"></i> 退还设备</a></li>
+							<!--<li><a alt="pages/otherList.html" title="其他管理" href="javascript:;"><i class="fa fa-sellsy"></i> SQL监控管理</a></li>-->
+						</ul>
+					</li>
+					<!--业务管理员-->
+					<li id="sbgl1">
+						<a class="parent-list-item" href="javascript:;"><i class="fa fa-cube"></i> 设备管理 <i class="fa fa-angle-left sanjiao"></i></a>
+						<ul class="son-list" style="display: none;">
+							<li><a href="javascript:;"><i class="fa fa-address-book"></i> 增加设备</a></li>
+							<li><a href="javascript:;"><i class="fa fa-adjust"></i> 删除设备</a></li>
+
+						</ul>
+					</li>
+
+					<li id="shgl">
+						<a class="parent-list-item" href="javascript:;"><i class="fa fa-cube"></i> 审核管理 <i class="fa fa-angle-left sanjiao"></i></a>
+						<ul class="son-list" style="display: none;">
+							<li><a href="javascript:;"><i class="fa fa-address-book"></i> 申请审核</a></li>
+							<li><a href="javascript:;"><i class="fa fa-adjust"></i> 退还审核</a></li>
+							<li><a href="javascript:;"><i class="fa fa-rotate-left"></i> 报修审核</a></li>
+						</ul>
+					</li>
+					<!--超级管理员-->
+					<li style="display: none" id="ywgl">
+						<a class="parent-list-item" href="javascript:;"><i class="fa fa-cube"></i> 业务员管理 <i class="fa fa-angle-left sanjiao"></i></a>
+						<ul class="son-list" style="display: none;">
+							<li><a href="javascript:;"><i class="fa fa-address-book"></i> 增加业务员</a></li>
+							<li><a href="javascript:;"><i class="fa fa-adjust"></i> 删除业务员</a></li>
+						</ul>
+					</li>
+
+
+
+				</ul>
+			</div>
+			<div class="bd-content-right">
+				<div class="content-right-title">
+					<ul id="content-right-title-ul">
+						<li><a href="#"><i class="fa fa-home"></i> 首页 </a></li>
+					</ul>
+				</div>
+				<iframe id="main" style="padding:0;margin:0;min-height: 558px;" src="../pages/welcome.html" width="100%" frameborder="no"></iframe>
+			</div>
+			<!--<div class="bd-content-right-bottom">-->
+				<!--@2016 Baidu | 京ICP证030173号-->
+			<!--</div>-->
+			
+		</div>
+		
+		
+		<script>
+			//初始化系统
+			bdyc.init();
+			
+			//当屏幕大小发生改变时需求重新初始化高度
+			window.onresize = function(){
+				bdyc.initHeight();
+			}
+		</script>
+		<script type="text/javascript">
+            $(document).ready(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/asset/getCookie.form",
+                    dataType: "html",
+                    success: function (msg) {
+                       var username=msg.split("$&")[0];
+                       var identify=msg.split("$&")[1];
+                       $("#uname").html(username);
+                       if (identify=="js"){
+                           $("#sbgl").show();
+                           $("#sbgl1").hide();
+                           $("#shgl").hide();
+                           $("#ywgl").hide();
+					   }
+					   else if(identify=="yw"){
+                           $("#sbgl").hide();
+                           $("#sbgl1").show();
+                           $("#shgl").show();
+                           $("#ywgl").hide();
+					   }
+                       else if(identify=="super"){
+                           $("#sbgl").hide();
+                           $("#sbgl1").hide();
+                           $("#shgl").hide();
+                           $("#ywgl").show();
+                       }
+                    }
+                });
+            });
+		</script>
+	</body>
+</html>
