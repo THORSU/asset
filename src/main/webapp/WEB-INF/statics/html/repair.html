@@ -3,36 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>报修设备</title>
-    <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="../css/repairDevice.css">
 </head>
 <body>
 <form>
-    <div>
-        <label for="deviceId"></label>
-        <input type="text" maxlength="16" autocomplete="off" placeholder="请输入设备号" id="deviceId">
+    <div id="repair">
+        <div data-role="header">
+            <div class="title">报修设备</div>
+        </div>
+        <br>
+        <div class="content">
+            <div>
+                <label for="deviceId"></label>
+                <input type="text" maxlength="16" autocomplete="off" placeholder="请输入设备号" id="deviceId">
+            </div>
+            <br>
+            <div>
+                <label for="unitName"></label>
+                <input type="text" maxlength="16" autocomplete="off" onblur="checkUnitName(this.id)"
+                       placeholder="请输入单位名"
+                       id="unitName">
+            </div>
+            <br>
+            <div>
+                <label for="deviceName"></label>
+                <input type="text" maxlength="16" autocomplete="off" onblur="checkDeviceName(this.id)"
+                       placeholder="请输入设备名"
+                       id="deviceName">
+            </div>
+            <br>
+            <input type="button" class="repairButton" value="报修设备" data-inline="true" onclick="repairDevice()">
+        </div>
     </div>
-    <div>
-        <label for="unitName"></label>
-        <input type="text" maxlength="16" autocomplete="off" onblur="checkUnitName(this.id)" placeholder="请输入单位名"
-               id="unitName">
-    </div>
-    <div>
-        <label for="deviceName"></label>
-        <input type="text" maxlength="16" autocomplete="off" onblur="checkDeviceName(this.id)" placeholder="请输入设备名"
-               id="deviceName">
-    </div>
-    <input type="button" value="报修设备" data-inline="true" onclick="repairDevice()">
 </form>
 <script type="text/javascript">
     function checkUnitName(v) {
-        if (v=="unitName"){
-            var unitName=$("#unitName").val();
+        if (v == "unitName") {
+            var unitName = $("#unitName").val();
             $.ajax({
                 type: "post",
-                url:"/asset/checkUnitName.form?unitName=" + unitName.trim(),
-                dataType:"html",
-                success:function (msg) {
+                url: "/asset/checkUnitName.form?unitName=" + unitName.trim(),
+                dataType: "html",
+                success: function (msg) {
                     if (msg == "check failure") {
                         alert("请输入正确的单位名！");
                     }
@@ -40,14 +53,15 @@
             })
         }
     }
+
     function checkDeviceName(v) {
-        if (v=="deviceName"){
-            var deviceName=$("#deviceName").val();
+        if (v == "deviceName") {
+            var deviceName = $("#deviceName").val();
             $.ajax({
                 type: "post",
-                url:"/asset/checkDeviceName.form?deviceName=" + deviceName.trim(),
-                dataType:"html",
-                success:function (msg) {
+                url: "/asset/checkDeviceName.form?deviceName=" + deviceName.trim(),
+                dataType: "html",
+                success: function (msg) {
                     if (msg == "check failure") {
                         alert("请输入正确的设备名！");
                     }
@@ -55,16 +69,17 @@
             })
         }
     }
+
     function repairDevice() {
-        var unitName=$("#unitName").val();
-        var deviceName=$("#deviceName").val();
-        var deviceId=$("#deviceId").val();
+        var unitName = $("#unitName").val();
+        var deviceName = $("#deviceName").val();
+        var deviceId = $("#deviceId").val();
         $.ajax({
-            type:"post",
-            url:"/asset/repairDevice.form?&unitName="+unitName.trim()+"&deviceName="+deviceName.trim()+"&deviceId="+deviceId.trim(),
-            dataType:"html",
-            success:function (msg) {
-                switch (msg){
+            type: "post",
+            url: "/asset/repairDevice.form?&unitName=" + unitName.trim() + "&deviceName=" + deviceName.trim() + "&deviceId=" + deviceId.trim(),
+            dataType: "html",
+            success: function (msg) {
+                switch (msg) {
                     case  "apply success":
                         alert("报修成功,等待审核");
                         break;

@@ -3,56 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>申请设备</title>
-    <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="../css/applyDevice.css">
 </head>
 <body>
 <div>
-   <form>
-       <div>
-           <!--<div>-->
-               <!--<label for="username"></label>-->
-               <!--<input type="text" maxlength="11" autocomplete="off" onblur="checkUser(this.id)" placeholder="请输入用户名" id="username">-->
-           <!--</div>-->
-           <div>
-               <label for="unitName"></label>
-               <input type="text" maxlength="16" autocomplete="off" onblur="checkUnitName(this.id)" placeholder="请输入单位名" id="unitName">
-           </div>
-           <div>
-               <label for="deviceName"></label>
-               <input type="text" maxlength="16" autocomplete="off" onblur="checkDeviceName(this.id)" placeholder="请输入设备名" id="deviceName">
-           </div>
-           <div>
-               <input type="button" value="确认申请" data-inline="true" onclick="applyDevice()">
-           </div>
-       </div>
-   </form>
+    <form>
+        <div id="apply">
+            <div data-role="header">
+                <div class="title">申请设备</div>
+            </div>
+            <br>
+            <div class="content">
+                <div>
+                    <label for="unitName"></label>
+                    <input type="text" maxlength="16" class="input" autocomplete="off" onblur="checkUnitName(this.id)"
+                           placeholder="请输入单位名" id="unitName">
+                </div>
+                <br>
+                <div>
+                    <label for="deviceName"></label>
+                    <input type="text" maxlength="16" class="input" autocomplete="off" onblur="checkDeviceName(this.id)"
+                           placeholder="请输入设备名" id="deviceName">
+                </div>
+                <br>
+                <div>
+                    <input type="button" class="applyButton" value="确认申请" data-inline="true" onclick="applyDevice()">
+                </div>
+                <br>
+            </div>
+        </div>
+    </form>
 </div>
 <script type="text/javascript">
-    // function checkUser(v){
-    //     if(v=="username") {
-    //         var username = $("#username").val();
-    //         console.log(username)
-    //         $.ajax({
-    //             type: "post",
-    //             url: "/asset/CheckUserName.form?username=" + username.trim(),
-    //             dataType: "html",
-    //             success: function (msg) {
-    //                 if (msg == "no exist") {
-    //                     alert("用户名错误！");
-    //                 }
-    //             }
-    //         })
-    //     }
-    // }
     function checkUnitName(v) {
-        if (v=="unitName"){
-            var unitName=$("#unitName").val();
+        if (v == "unitName") {
+            var unitName = $("#unitName").val();
             $.ajax({
                 type: "post",
-                url:"/asset/checkUnitName.form?unitName=" + unitName.trim(),
-                dataType:"html",
-                success:function (msg) {
+                url: "/asset/checkUnitName.form?unitName=" + unitName.trim(),
+                dataType: "html",
+                success: function (msg) {
                     if (msg == "check failure") {
                         alert("请输入正确的单位名！");
                     }
@@ -60,14 +51,15 @@
             })
         }
     }
+
     function checkDeviceName(v) {
-        if (v=="deviceName"){
-            var deviceName=$("#deviceName").val();
+        if (v == "deviceName") {
+            var deviceName = $("#deviceName").val();
             $.ajax({
                 type: "post",
-                url:"/asset/checkDeviceName.form?deviceName=" + deviceName.trim(),
-                dataType:"html",
-                success:function (msg) {
+                url: "/asset/checkDeviceName.form?deviceName=" + deviceName.trim(),
+                dataType: "html",
+                success: function (msg) {
                     if (msg == "check failure") {
                         alert("请输入正确的设备名！");
                     }
@@ -75,15 +67,16 @@
             })
         }
     }
+
     function applyDevice() {
-        var unitName=$("#unitName").val();
-        var deviceName=$("#deviceName").val();
+        var unitName = $("#unitName").val();
+        var deviceName = $("#deviceName").val();
         $.ajax({
-            type:"post",
-            url:"/asset/applyDevice.form?&unitName="+unitName.trim()+"&deviceName="+deviceName.trim(),
-            dataType:"html",
-            success:function (msg) {
-                switch (msg){
+            type: "post",
+            url: "/asset/applyDevice.form?&unitName=" + unitName.trim() + "&deviceName=" + deviceName.trim(),
+            dataType: "html",
+            success: function (msg) {
+                switch (msg) {
                     case  "apply success":
                         alert("申请成功,等待审核");
                         break;

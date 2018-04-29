@@ -3,25 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>退还设备</title>
-    <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="../css/refundDevice.css">
 </head>
 <body>
 <div>
-    <label for="deviceId"></label>
-    <input type="text" maxlength="16" autocomplete="off" placeholder="请输入设备号" id="deviceId">
+    <div id="refund">
+        <div data-role="header">
+            <div class="title">退还设备</div>
+        </div>
+        <br>
+        <div class="content">
+            <div>
+                <label for="deviceId"></label>
+                <input type="text" maxlength="16" autocomplete="off" placeholder="请输入设备号" id="deviceId">
+            </div>
+            <br>
+            <div>
+                <label for="unitName"></label>
+                <input type="text" maxlength="16" autocomplete="off" onblur="checkUnitName(this.id)"
+                       placeholder="请输入单位名"
+                       id="unitName">
+            </div>
+            <br>
+            <div>
+                <label for="deviceName"></label>
+                <input type="text" maxlength="16" autocomplete="off" onblur="checkDeviceName(this.id)"
+                       placeholder="请输入设备名"
+                       id="deviceName">
+            </div>
+            <br>
+            <input type="button" class="refundButton" value="退还设备" data-inline="true" onclick="refundDevice()">
+        </div>
+    </div>
 </div>
-<div>
-    <label for="unitName"></label>
-    <input type="text" maxlength="16" autocomplete="off" onblur="checkUnitName(this.id)" placeholder="请输入单位名"
-           id="unitName">
-</div>
-<div>
-    <label for="deviceName"></label>
-    <input type="text" maxlength="16" autocomplete="off" onblur="checkDeviceName(this.id)" placeholder="请输入设备名"
-           id="deviceName">
-</div>
-<input type="button" value="退还设备" data-inline="true" onclick="refundDevice()">
 <script type="text/javascript">
     function checkUnitName(v) {
         if (v == "unitName") {
