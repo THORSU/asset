@@ -34,4 +34,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="delSenManger" parameterType="asset.pojo.SenManager">
 		DELETE FROM `SenManager` WHERE name=#{name}
 	</delete>
+	<!--超级管理员登录-->
+	<select id="superMangerLogin" parameterType="asset.pojo.PriManage" resultType="asset.pojo.PriManage">
+		SELECT * FROM `PriManager` WHERE name=#{name}
+	</select>
 </mapper> 

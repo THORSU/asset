@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>增加设备</title>
+    <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+<div>
+    <label for="deviceName"></label>
+    <input type="text" maxlength="16" autocomplete="off" placeholder="请输入设备名" id="deviceName">
+</div>
+<div>
+    <input type="button" value="添加设备" data-inline="true" onclick="addDevice()">
+</div>
+<script type="text/javascript">
+    function addDevice() {
+        var deviceName=$("#deviceName");
+        $.ajax({
+            type:"post",
+            url:"/asset/addDevice.form?deviceName="+deviceName.trim(),
+            dataType:"html",
+            success:function (msg) {
+                if ("add success"==msg){
+                    alert("添加成功")
+                }else{
+                    alert("添加失败")
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

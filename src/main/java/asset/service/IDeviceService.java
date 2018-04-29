@@ -16,6 +16,8 @@ public interface IDeviceService {
     public DeviceForm getDevice(String deviceId);
     //获取设备列表
     public List<DeviceForm> getDeviceList(DeviceForm deviceForm);
+    //获取设备列表详细信息
+    public List<DeviceForm> getDeviceLists();
     //申请设备
     public int applyDevice(ApplyForm deviceForm);
     //申请修改状态位

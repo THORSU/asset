@@ -7,6 +7,9 @@
     <select id="getDevice" parameterType="java.lang.String" resultType="asset.pojo.DeviceForm">
         SELECT * FROM `DeviceForm` WHERE deviceId=#{deviceId}
     </select>
+    <select id="getDeviceLists" resultType="asset.pojo.DeviceForm" >
+        SELECT * FROM `DeviceForm`
+    </select>
     <select id="getDeviceList" parameterType="asset.pojo.DeviceForm" resultType="asset.pojo.DeviceForm">
         SELECT * FROM `DeviceForm` WHERE deviceName=#{deviceName}
     </select>

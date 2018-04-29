@@ -1,5 +1,6 @@
 package asset.mapper;
 
+import asset.pojo.PriManage;
 import asset.pojo.SenManager;
 import asset.pojo.Teacher;
 import asset.pojo.Unit;
@@ -21,4 +22,6 @@ public interface UserMapper {
     public int addSenManger(SenManager senManager);
     //删除业务管理员
     public int delSenManger(SenManager senManager);
+    //超级管理员登陆
+    public PriManage superMangerLogin(PriManage priManage);
 }

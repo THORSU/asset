@@ -1,0 +1,92 @@
+html {
+  /*以iPhone6为基准 375/15px = 25*/
+  font-size: 15px;
+}
+body {
+  background-color: #F5F5F5;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #666;
+}
+.title{
+  text-align: center;
+  padding: 10px;
+  font-size: 15px;
+  text-shadow: -1px -1px 1px #cccccc;
+  filter: dropshadow(color=#ffffff, offx=1, offy=1);
+  color: #617798;
+}
+body {
+  display: block;
+  margin: 8px;
+}
+input {
+  padding: 9px;
+  border: solid 1px #E5E5E5;
+  outline: 0;
+  width: 200px;
+  background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%,#EEEEEE),to(#FFFFFF));
+  background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px);
+  box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+  -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+  -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+  font-family: Verdana, Tahoma, sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  line-height: 100%;
+  font-weight: normal;
+  font-variant: normal;
+  color: #617798;
+}
+
+#regtable{
+  width: 335px;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+  border-left-width: 0px;
+  -webkit-margin-start: auto;
+  -webkit-margin-end: auto;
+  -webkit-border-horizontal-spacing: 0px;
+  -webkit-border-vertical-spacing: 0px;
+}
+#regtable{
+  display: table;
+  border-collapse: separate;
+  border-spacing: 2px;
+  border-color: grey;
+}
+#regtable{
+  display: table;
+  border-collapse: separate;
+  border-spacing: 2px;
+  border-color: grey;
+}
+#regtable{
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fefefe;
+  border: 1px solid #CCC;
+  color: #333;
+  box-shadow: 0px 0px 8px #cccccc;
+  -moz-box-shadow: 0px 0px 8px #cccccc;
+  -webkit-box-shadow: 0px 0px 8px #cccccc;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 50px;
+
+}
+.content{
+  margin-left: 49px;
+}
+.regButton{
+  width: 78%;
+  padding: 9px 15px;
+  background: #617798;
+  border: 0;
+  font-size: 14px;
+  color: #FFFFFF;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  cursor: pointer;
+}

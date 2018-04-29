@@ -1,8 +1,6 @@
 package asset.service;
 
-import asset.pojo.SenManager;
-import asset.pojo.Teacher;
-import asset.pojo.Unit;
+import asset.pojo.*;
 import asset.pojo.Teacher;
 
 /**
@@ -21,4 +19,6 @@ public interface IUserService {
     public int addSenManger(SenManager senManager);
     //删除业务管理员
     public int delSenManger(SenManager senManager);
+    //超级管理员登陆
+    public PriManage superMangerLogin(PriManage priManage);
 }

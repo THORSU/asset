@@ -1,0 +1,135 @@
+/*公有样式*/
+*{
+	padding:0px;
+	margin:0px;
+}
+a{
+	text-decoration: none;
+}
+ul{
+	list-style: none;
+}
+.btn{
+	display: inline-block;
+	padding:6px 12px;
+	border:1px solid #ccc;
+	font-size:12px;
+	border-radius:5px ;
+	margin:5px;
+}
+.btn>i{
+	font-size:14px;
+	font-weight: bold;
+}
+.btn-default{
+	background-color: #fff;
+	color:#333;
+}
+.btn-default:hover{
+	color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+.btn-primary{
+	color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+.btn-primary:hover{
+	color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+}
+
+
+/*表格公有样式*/
+
+
+.search-form{
+	display: inline-block;
+	margin-left:20px;
+}
+.search-form>.ipt-text{
+	height:20px;
+	line-height: 20px;
+	padding:4px 6px;
+	border:1px solid #ccc;
+	border-radius: 5px;
+}
+
+.table-box{
+	border:1px solid #ccc;
+	border-radius: 5px;
+	margin-top:15px;
+}
+.table-box .content-list-table{
+	width:100%;
+	border-collapse: collapse;
+	overflow-y:auto;
+}
+.table-box .content-list-table th,
+.table-box .content-list-table td{
+	border:1px solid #ccc;
+	padding:6px 12px;
+	text-align: left;
+}
+.table-box .content-list-table th{
+	border-top:none;
+}
+.table-box .content-list-table th:first-child{
+	border-left:none;
+}
+.table-box .content-list-table td:first-child{
+	border-left: none;
+}
+.table-box .content-list-table th:last-child{
+	border-right:none;
+}
+.table-box .content-list-table td:last-child{
+	border-right: none;
+}
+
+.content-pager-table{
+	width:100%;
+	background-color: #fff;
+}
+.content-pager-table td{
+	height:30px;
+	padding:6px 12px;
+	border-top:1px solid #ccc;
+	width:33%;
+}
+.content-pager-table td:nth-child(2){
+	text-align: center;
+}
+.content-pager-table td:nth-child(3){
+	text-align: right;
+}
+
+.pagaration>a{
+	display: inline-block;
+	padding:3px 8px;
+	color:#ccc;
+}
+.pagaration>a:hover{
+	color:#333;
+	background-color: #ccc;
+}
+.pagaration>.line{
+	color:#ccc;
+	font-weight: bold;
+	padding:5px 0px;
+}
+.pagaration>input{
+	border:1px solid #ccc;
+	width:30px;
+	height:16px;
+	padding:4px 6px;
+	border-radius: 5px;
+}
+.pagaration>select{
+	border:1px solid #ccc;
+	width:40px;
+	height:24px;
+	border-radius: 5px;
+}

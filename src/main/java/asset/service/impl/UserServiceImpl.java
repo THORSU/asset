@@ -1,6 +1,7 @@
 package asset.service.impl;
 
 import asset.mapper.UserMapper;
+import asset.pojo.PriManage;
 import asset.pojo.SenManager;
 import asset.pojo.Teacher;
 import asset.pojo.Unit;
@@ -43,5 +44,10 @@ public class UserServiceImpl implements IUserService {
     @Override
     public int delSenManger(SenManager senManager) {
         return userMapper.delSenManger(senManager);
+    }
+
+    @Override
+    public PriManage superMangerLogin(PriManage priManage) {
+        return userMapper.superMangerLogin(priManage);
     }
 }
