@@ -1,13 +1,11 @@
 package asset.controller;
 
-import asset.mapper.UserMapper;
 import asset.pojo.SenManager;
 import asset.pojo.Teacher;
 import asset.pojo.Unit;
 import asset.service.IUnitService;
 import asset.service.IUserService;
-import asset.service.impl.UserServiceImpl;
-import asset.utils.RandomAccessUtil;
+import com.alibaba.fastjson.JSON;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
-import java.util.Random;
 
 /**
  * Author:QuincySu
@@ -52,7 +49,7 @@ public class SignUpController {
             teacher.setUnitId(res1.getUnitId());
             teacher.setName(username);
             teacher.setPassword(password);
-            teacher.setId(RandomAccessUtil.getRandom("Teacher"));
+//            teacher.setId(RandomAccessUtil.getRandom("Teacher"));
             int res=userService.signUp(teacher);
             if (res==1){
                 logger.info(res);
@@ -69,32 +66,53 @@ public class SignUpController {
     Object addSenManger(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{
         String username = new String(request.getParameter("username").getBytes("iso-8859-1"),"utf-8");
         String password = request.getParameter("password").trim();
+
         senManager.setName(username);
         senManager.setPassword(password);
         //是否已存在
         SenManager senManager1=userService.senManagerLogin(senManager);
+        System.out.println(JSON.toJSONString(senManager1));
+        //todo 状态位（0：账号正常，1：已删除）
+        senManager.setStatus("0");
         if (senManager1==null){
-            senManager.setId(RandomAccessUtil.getRandom("SenManger"));
-            int num=userService.addSenManger(senManager1);
+//            senManager.setId(RandomAccessUtil.getRandom("SenManger"));
+            int num = userService.addSenManager(senManager);
             if (num==1){
                 return "add success";
             }else {
                 return "add fail";
             }
-        }else{
+        } else if ("1".equals(senManager1.getStatus())) {
+            int num = userService.updateManager(senManager);
+            if (num == 1) {
+                return "add success";
+            } else {
+                return "add fail";
+            }
+        } else {
             return "manager exist";
         }
     }
     //删除业务管理员
     @RequestMapping(value = "/delSenManger.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
-    Object delSenManger(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{
-        String username = new String(request.getParameter("username").getBytes("iso-8859-1"),"utf-8");
+    Object delSenManger(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
         senManager.setName(username);
-        int num= userService.delSenManger(senManager);
-        if (num==1){
-            return "del success";
-        }else{
+        //是否已存在
+        SenManager senManager1 = userService.senManagerLogin(senManager);
+        if (senManager1 != null && "0".equals(senManager1.getStatus())) {
+            //todo 此处暂定为逻辑删除
+            senManager.setStatus("1");
+            int num = userService.delSenManager(senManager);
+            if (num == 1) {
+                return "del success";
+            } else {
+                return "del fail";
+            }
+        } else if (senManager1 != null && "1".equals(senManager1.getStatus())) {
+            return "already del";
+        } else {
             return "del fail";
         }
     }

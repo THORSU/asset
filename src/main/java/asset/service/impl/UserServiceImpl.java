@@ -1,10 +1,9 @@
 package asset.service.impl;
 
 import asset.mapper.UserMapper;
-import asset.pojo.PriManage;
+import asset.pojo.PriManager;
 import asset.pojo.SenManager;
 import asset.pojo.Teacher;
-import asset.pojo.Unit;
 import asset.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,17 +36,22 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public int addSenManger(SenManager senManager) {
-        return userMapper.addSenManger(senManager);
+    public int addSenManager(SenManager senManager) {
+        return userMapper.addSenManager(senManager);
     }
 
     @Override
-    public int delSenManger(SenManager senManager) {
-        return userMapper.delSenManger(senManager);
+    public int updateManager(SenManager senManager) {
+        return userMapper.updateManager(senManager);
     }
 
     @Override
-    public PriManage superMangerLogin(PriManage priManage) {
-        return userMapper.superMangerLogin(priManage);
+    public int delSenManager(SenManager senManager) {
+        return userMapper.delSenManager(senManager);
+    }
+
+    @Override
+    public PriManager superManagerLogin(PriManager priManager) {
+        return userMapper.superManagerLogin(priManager);
     }
 }

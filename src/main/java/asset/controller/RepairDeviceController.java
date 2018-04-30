@@ -6,8 +6,6 @@ import asset.pojo.Unit;
 import asset.service.IDeviceService;
 import asset.service.IUnitService;
 import asset.utils.DataUtil;
-import asset.utils.RandomAccessUtil;
-import com.sun.xml.internal.bind.v2.TODO;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -76,7 +74,7 @@ public class RepairDeviceController {
 
         String time= DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
         repairForm.setRepairTime(time);
-        repairForm.setId(RandomAccessUtil.getRandom("Repair"));
+//        repairForm.setId(RandomAccessUtil.getRandom("Repair"));
         System.out.println(deviceForm1.getUseStatus());
         if ("0".equals(deviceForm1.getUseStatus())){
             deviceForm1.setUseStatus("4");

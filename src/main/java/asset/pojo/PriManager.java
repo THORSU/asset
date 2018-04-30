@@ -4,7 +4,7 @@ package asset.pojo;
  * Author:QuincySu
  * Date:Created in 2018/4/12
  */
-public class PriManage {
+public class PriManager {
     //id
     private String id;
     //姓名

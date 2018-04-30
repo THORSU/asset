@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>增加业务管理员</title>
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="../css/addManager.css">
+</head>
+<body>
+<div>
+    <form>
+        <div id="addMangager">
+            <div data-role="header">
+                <div class="title">增加业务管理员</div>
+            </div>
+            <br>
+            <div class="content">
+                <div>
+                    <label for="username"></label>
+                    <input type="text" class="input" maxlength="11" placeholder="请输入账号"
+                           id="username">
+                </div>
+                <br>
+                <div>
+                    <label for="password"></label>
+                    <input type="password" class="input" maxlength="16" autocomplete="off" placeholder="请输入密码"
+                           id="password">
+                </div>
+                <br>
+                <div>
+                    <input type="button" class="addManagerButton" value="添加" data-inline="true" onclick="addManager()">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function addManager() {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        $.ajax({
+            type: "post",
+            url: "/asset/addSenManger.form?username=" + username.trim() + "&password=" + password.trim(),
+            dataType: "html",
+            success: function (msg) {
+                if (msg == "add success") {
+                    alert("添加成功")
+                } else if (msg == "add fail") {
+                    alert("添加失败")
+                } else if (msg == "manager exist") {
+                    alert("已经添加")
+                } else {
+                    alert("输入有误")
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

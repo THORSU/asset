@@ -19,18 +19,18 @@
     </update>
     <!--申请设备-->
     <insert id="applyDevice" parameterType="asset.pojo.ApplyForm" >
-        INSERT INTO `ApplyForm` (id,unitId,deviceId,applyName,deviceName,unitName,applyTime)
-        VALUES (#{id},#{unitId},#{deviceId},#{applyName},#{deviceName},#{unitName},#{applyTime})
+        INSERT INTO `ApplyForm` (unitId,deviceId,applyName,deviceName,unitName,applyTime)
+        VALUES (#{unitId},#{deviceId},#{applyName},#{deviceName},#{unitName},#{applyTime})
     </insert>
     <!--报修设备-->
     <insert id="repairDevice" parameterType="asset.pojo.RepairForm">
-        INSERT INTO `RepairForm`(id,unitId,deviceId,applyName,deviceName,unitName,repairTime)
-        VALUES (#{id},#{unitId},#{deviceId},#{applyName},#{deviceName},#{unitName},#{repairTime})
+        INSERT INTO `RepairForm`(unitId,deviceId,applyName,deviceName,unitName,repairTime)
+        VALUES (#{unitId},#{deviceId},#{applyName},#{deviceName},#{unitName},#{repairTime})
     </insert>
     <!--退还设备-->
     <insert id="refundDevice" parameterType="asset.pojo.RefundForm">
-        INSERT INTO `RefundForm` (id,unitId,deviceId,applyName,deviceName,unitName,refundTime)
-        VALUES (#{id},#{unitId},#{deviceId},#{applyName},#{deviceName},#{unitName},#{refundTime})
+        INSERT INTO `RefundForm` (unitId,deviceId,applyName,deviceName,unitName,refundTime)
+        VALUES (#{unitId},#{deviceId},#{applyName},#{deviceName},#{unitName},#{refundTime})
     </insert>
     <!--查询申请-->
     <select id="getApplyForm" parameterType="asset.pojo.ApplyForm" resultType="asset.pojo.ApplyForm">

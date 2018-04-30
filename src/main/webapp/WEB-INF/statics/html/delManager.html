@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>删除业务管理员</title>
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="../css/delManager.css">
+</head>
+<body>
+<div>
+    <form>
+        <div id="delMangager">
+            <div data-role="header">
+                <div class="title">删除业务管理员</div>
+            </div>
+            <br>
+            <div class="content">
+                <div>
+                    <label for="username"></label>
+                    <input type="text" class="input" maxlength="11" placeholder="请输入账号"
+                           id="username">
+                </div>
+                <br>
+                <div>
+                    <input type="button" class="delManagerButton" value="删除" data-inline="true" onclick="delManagefr()">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function delManagefr() {
+        var username = $("#username").val();
+        $.ajax({
+            type: "post",
+            url: "/asset/delSenManger.form?username=" + username.trim(),
+            dataType: "html",
+            success: function (msg) {
+                if (msg == "del success") {
+                    alert("删除成功")
+                } else if (msg == "del fail") {
+                    alert("删除失败或者没有这个人！！")
+                } else if (msg == "already del") {
+                    alert("已删除！")
+                } else {
+                    alert("输入有误")
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

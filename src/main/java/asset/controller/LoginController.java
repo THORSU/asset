@@ -1,10 +1,9 @@
 package asset.controller;
 
-import asset.pojo.PriManage;
+import asset.pojo.PriManager;
 import asset.pojo.SenManager;
 import asset.pojo.Teacher;
 import asset.service.IUserService;
-import asset.service.impl.UserServiceImpl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +28,7 @@ public class LoginController {
     private IUserService userService;
     private Teacher teacher=new Teacher();
     private SenManager senManager=new SenManager();
-    private PriManage priManage=new PriManage();
+    private PriManager priManager = new PriManager();
     //老师登录
     @RequestMapping(value = "/teacherLogin.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
@@ -92,12 +91,12 @@ public class LoginController {
     Object priMangerLogin(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{
         String username = new String(request.getParameter("username").getBytes("iso-8859-1"),"utf-8");
         String password = request.getParameter("password").trim();
-        priManage.setName(username);
-        priManage.setPassword(password);
-        PriManage priManage1=userService.superMangerLogin(priManage);
-        if (priManage1!=null) {
-            if (priManage1.getPassword().equals(password)) {
-                Cookie uname = new Cookie("username", priManage1.getName());
+        priManager.setName(username);
+        priManager.setPassword(password);
+        PriManager priManager1 = userService.superManagerLogin(priManager);
+        if (priManager1 != null) {
+            if (priManager1.getPassword().equals(password)) {
+                Cookie uname = new Cookie("username", priManager1.getName());
                 Cookie identify = new Cookie("identify", "super");
                 identify.setPath("/");
                 uname.setPath("/");

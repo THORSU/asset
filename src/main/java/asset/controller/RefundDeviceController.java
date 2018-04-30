@@ -6,7 +6,6 @@ import asset.pojo.Unit;
 import asset.service.IDeviceService;
 import asset.service.IUnitService;
 import asset.utils.DataUtil;
-import asset.utils.RandomAccessUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,7 +67,7 @@ public class RefundDeviceController {
         }
         refundForm.setDeviceId(deviceId);
         DeviceForm deviceForm1=deviceService.getDevice(deviceId);
-        refundForm.setId(RandomAccessUtil.getRandom("Refund"));
+//        refundForm.setId(RandomAccessUtil.getRandom("Refund"));
         String time = DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
         refundForm.setRefundTime(time);
         if ("0".equals(deviceForm1.getUseStatus())) {

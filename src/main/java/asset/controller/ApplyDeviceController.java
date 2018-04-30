@@ -6,7 +6,6 @@ import asset.pojo.Unit;
 import asset.service.IDeviceService;
 import asset.service.IUnitService;
 import asset.utils.DataUtil;
-import asset.utils.RandomAccessUtil;
 import com.alibaba.fastjson.JSON;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +83,7 @@ public class ApplyDeviceController {
         if (unit1 != null) {
             applyForm.setUnitId(unit1.getUnitId());
         }
-        applyForm.setId(RandomAccessUtil.getRandom("Apply"));
+//        applyForm.setId(RandomAccessUtil.getRandom("Apply"));
         String time= DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
         applyForm.setApplyTime(time);
         Integer num = deviceService.applyDevice(applyForm);

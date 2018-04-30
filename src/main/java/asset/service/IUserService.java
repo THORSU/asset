@@ -1,6 +1,7 @@
 package asset.service;
 
-import asset.pojo.*;
+import asset.pojo.PriManager;
+import asset.pojo.SenManager;
 import asset.pojo.Teacher;
 
 /**
@@ -16,9 +17,11 @@ public interface IUserService {
     //业务管理员登录
     public SenManager senManagerLogin(SenManager senManager);
     //添加业务管理员
-    public int addSenManger(SenManager senManager);
+    public int addSenManager(SenManager senManager);
+
+    public int updateManager(SenManager senManager);
     //删除业务管理员
-    public int delSenManger(SenManager senManager);
+    public int delSenManager(SenManager senManager);
     //超级管理员登陆
-    public PriManage superMangerLogin(PriManage priManage);
+    public PriManager superManagerLogin(PriManager priManager);
 }

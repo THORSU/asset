@@ -20,22 +20,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!--老师注册-->
 	<insert id="signUp" parameterType="asset.pojo.Teacher" >
-		INSERT INTO `Teacher` (id,name,password,unitId) VALUES (#{id},#{name},#{password},#{unitId})
+		INSERT INTO `Teacher` (name,password,unitId) VALUES (#{name},#{password},#{unitId})
 	</insert>
 	<!--业务管理员登录-->
 	<select id="senManagerLogin" parameterType="asset.pojo.SenManager" resultType="asset.pojo.SenManager">
 		SELECT * FROM `SenManager` WHERE name=#{name}
 	</select>
 	<!--添加业务管理员-->
-	<insert id="addSenManger" parameterType="asset.pojo.SenManager">
-		INSERT INTO `SenManager` (id,name,password) VALUES (#{id},#{name},#{password})
+	<insert id="addSenManager" parameterType="asset.pojo.SenManager">
+		INSERT INTO `SenManager` (name,password,status) VALUES (#{name},#{password},#{status})
 	</insert>
+	<update id="updateManager" parameterType="asset.pojo.SenManager">
+		UPDATE `SenManager` SET status=#{status}
+		WHERE name=#{name}
+	</update>
 	<!--删除业务管理员-->
-	<delete id="delSenManger" parameterType="asset.pojo.SenManager">
-		DELETE FROM `SenManager` WHERE name=#{name}
-	</delete>
+	<update id="delSenManager" parameterType="asset.pojo.SenManager">
+		UPDATE `SenManager` SET status=#{status}
+		WHERE name=#{name}
+	</update>
 	<!--超级管理员登录-->
-	<select id="superMangerLogin" parameterType="asset.pojo.PriManage" resultType="asset.pojo.PriManage">
+	<select id="superManagerLogin" parameterType="asset.pojo.PriManager" resultType="asset.pojo.PriManager">
 		SELECT * FROM `PriManager` WHERE name=#{name}
 	</select>
 </mapper> 
