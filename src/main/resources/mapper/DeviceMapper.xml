@@ -7,11 +7,14 @@
     <select id="getDevice" parameterType="java.lang.String" resultType="asset.pojo.DeviceForm">
         SELECT * FROM `DeviceForm` WHERE deviceId=#{deviceId}
     </select>
-    <select id="getDeviceLists" resultType="asset.pojo.DeviceForm" >
-        SELECT * FROM `DeviceForm`
+    <select id="getDeviceLists" parameterType="String" resultType="asset.pojo.DeviceForm">
+        SELECT * FROM `DeviceForm` WHERE useStatus=#{useStatus}
     </select>
     <select id="getDeviceList" parameterType="asset.pojo.DeviceForm" resultType="asset.pojo.DeviceForm">
         SELECT * FROM `DeviceForm` WHERE deviceName=#{deviceName}
+    </select>
+    <select id="getDeviceList1" resultType="asset.pojo.DeviceForm">
+        SELECT * FROM `DeviceForm`
     </select>
     <!--更改设备状态-->
     <update id="modifyStatus" parameterType="asset.pojo.DeviceForm">

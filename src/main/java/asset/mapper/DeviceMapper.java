@@ -17,7 +17,9 @@ public interface DeviceMapper {
     //获取设备列表
     public List<DeviceForm> getDeviceList(DeviceForm deviceForm);
     //获取设备列表详细信息
-    public List<DeviceForm> getDeviceLists();
+    public List<DeviceForm> getDeviceLists(String useStatus);
+
+    public List<DeviceForm> getDeviceList1();
     //申请设备
     public int applyDevice(ApplyForm deviceForm);
     //修改状态位

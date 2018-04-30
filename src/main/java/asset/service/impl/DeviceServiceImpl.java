@@ -31,8 +31,13 @@ public class DeviceServiceImpl implements IDeviceService {
     }
 
     @Override
-    public List<DeviceForm> getDeviceLists() {
-        return deviceMapper.getDeviceLists();
+    public List<DeviceForm> getDeviceLists(String useStatus) {
+        return deviceMapper.getDeviceLists(useStatus);
+    }
+
+    @Override
+    public List<DeviceForm> getDeviceList1() {
+        return deviceMapper.getDeviceList1();
     }
 
     @Override

@@ -14,8 +14,17 @@
 			<!--<a href="javascript:;" class="btn btn-primary"><i class="fa fa-edit"></i> 修改</a>-->
 			<!--<a href="javascript:;" class="btn btn-primary"><i class="fa fa-trash"></i> 删除</a>-->
 			<form class="search-form" action="">
-				<input class="ipt-text" type="text" name="username" />
-				<input class="btn btn-default" type="submit" value="搜索" />
+				<!--<input class="ipt-text" type="text" name="username" />-->
+				<select class="ipt-text" id="useStatus">
+					<option></option>
+					<option>闲置</option>
+					<option>在用</option>
+					<option>毁坏</option>
+					<option>申请待审核</option>
+					<option>报修待审核</option>
+					<option>退还待审核</option>
+				</select>
+				<!--<input class="btn btn-default" type="submit" value="搜索" />-->
 			</form>
 		</div>
 		<div class="table-box">
@@ -62,15 +71,123 @@
 		</div>
 		
 		<script>
+            $("#useStatus").change(function () {
+                var useStatus = $("#useStatus").find("option:selected").text();
+                var useStatus1;
+                if (useStatus == "") {
+                    useStatus1 = "101"
+                }
+                if (useStatus == "闲置") {
+                    useStatus1 = "1"
+                }
+                if (useStatus == "在用") {
+                    useStatus1 = "0"
+                }
+                if (useStatus == "毁坏") {
+                    useStatus1 = "2"
+                }
+                if (useStatus == "申请待审核") {
+                    useStatus1 = "3"
+                }
+                if (useStatus == "报修待审核") {
+                    useStatus1 = "4"
+                }
+                if (useStatus == "退还待审核") {
+                    useStatus1 = "5"
+                }
+                $.ajax({
+                    type: "post",
+                    url: "/asset/queryDeviceList.form?useStatus1=" + useStatus1.trim(),
+                    dataType: "html",
+                    success: function (msg) {
+                        var header = "<tr>\n" +
+                            "\t\t\t\t\t\t<th></th>\n" +
+                            // "\t\t\t\t\t\t<th><input class=\"table-check-all\" type=\"checkbox\" name=\"all\"/></th>\n" +
+                            "\t\t\t\t\t\t<th>设备ID</th>\n" +
+                            "\t\t\t\t\t\t<th>设备名</th>\n" +
+                            "\t\t\t\t\t\t<th>入库时间</th>\n" +
+                            "\t\t\t\t\t\t<th>使用状态</th>\n" +
+                            "\t\t\t\t\t</tr>";
+                        var deviceLists = eval('(' + msg + ')');
+                        var content = "";
+                        for (var i = 0, l = deviceLists.length; i < l; i++) {
+                            for (var key in deviceLists[i]) {
+                                if (key == "deviceId") {
+                                    content += "<tr>\n" +
+                                        "\t\t\t\t\t\t<td>" + (i + 1) + "</td>\n" +
+                                        // "\t\t\t\t\t\t<td><input  class=\"table-check-item\" type=\"checkbox\" name=\"userId\"/></td>\n" +
+                                        "\t\t\t\t\t\t<td>" + deviceLists[i][key] + "</td>\n";
+                                }
+                                else if (key == "deviceName") {
+                                    content += "\t\t\t\t\t\t<td>" + deviceLists[i][key] + "</td>\n";
+                                }
+                                else if (key == "storageTime") {
+                                    content += "\t\t\t\t\t\t<td>" + deviceLists[i][key] + "</td>\n";
+                                }
+                                else if (key == "useStatus") {
+                                    if (deviceLists[i][key] == "0") {
+                                        content += "\t\t\t\t\t\t<td> 在用</td>\n";
+                                    }
+                                    else if (deviceLists[i][key] == "1") {
+                                        content += "\t\t\t\t\t\t<td> 闲置</td>\n";
+                                    }
+                                    else if (deviceLists[i][key] == "2") {
+                                        content += "\t\t\t\t\t\t<td> 毁坏不能用</td>\n";
+                                    }
+                                    else if (deviceLists[i][key] == "3") {
+                                        content += "\t\t\t\t\t\t<td> 待审核申请</td>\n";
+                                    }
+                                    else if (deviceLists[i][key] == "4") {
+                                        content += "\t\t\t\t\t\t<td> 待审核报修</td>\n";
+                                    }
+                                    else if (deviceLists[i][key] == "5") {
+                                        content += "\t\t\t\t\t\t<td> 待审核退还</td>\n";
+                                    }
+                                }
+                                else {
+                                    content += "\t\t\t\t\t</tr>";
+                                }
+                            }
+                        }
+                        var deviceTableLists = header + content;
+                        $("#deviceform").html(deviceTableLists);
+                    }
+                });
+            })
+
 			//初始化tablebox高度
 			bdyc.setTableBoxHeight();
 			bdyc.tableCheckAll();
 			bdyc.tableTrClick();
 			bdyc.tableTrCheckboxClick();
             $(document).ready(function () {
+                var useStatus = $("#useStatus").find("option:selected").text();
+                //alert(useStatus);
+                var useStatus1;
+                if (useStatus == "") {
+                    useStatus1 = "101"
+                }
+                if (useStatus == "闲置") {
+                    useStatus1 = "1"
+                }
+                if (useStatus == "在用") {
+                    useStatus1 = "0"
+                }
+                if (useStatus == "毁坏") {
+                    useStatus1 = "2"
+                }
+                if (useStatus == "申请待审核") {
+                    useStatus1 = "3"
+                }
+                if (useStatus == "报修待审核") {
+                    useStatus1 = "4"
+                }
+                if (useStatus == "退还待审核") {
+                    useStatus1 = "5"
+                }
                 $.ajax({
-                    type: "POST",
-                    url: "/asset/queryDeviceList.form",
+                    type: "post",
+                    url: "/asset/queryDeviceList.form?useStatus1=" + useStatus1.trim(),
                     dataType: "html",
                     success: function (msg) {
                         var header="<tr>\n" +
