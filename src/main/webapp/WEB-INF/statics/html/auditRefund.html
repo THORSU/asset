@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>审核申请</title>
+    <title>审核退还</title>
     <script src="../js/jquery-1.10.2.min.js"></script>
-    <link rel="stylesheet" href="../css/auditApply.css">
+    <link rel="stylesheet" href="../css/auditRefund.css">
 </head>
 <body>
 <div>
     <form>
-        <div id="auditApply">
+        <div id="auditRefund">
             <div data-role="header">
-                <div class="title">审核申请</div>
+                <div class="title">审核退还</div>
             </div>
             <br>
             <div class="content">
@@ -28,20 +28,20 @@
                 </div>
                 <br>
                 <div>
-                    <input type="button" class="auditApplyButton" value="通过审核" data-inline="true"
-                           onclick="auditApply()">
+                    <input type="button" class="auditRefundButton" value="通过审核" data-inline="true"
+                           onclick="auditRefund()">
                 </div>
             </div>
         </div>
     </form>
 </div>
 <script type="text/javascript">
-    function auditApply() {
+    function auditRefund() {
         var deviceId = $("#deviceId").val();
         var deviceName = $("#deviceName").val();
         $.ajax({
             type: "post",
-            url: "/asset/auditApply.form?deviceId=" + deviceId.trim() + "&deviceName=" + deviceName.trim(),
+            url: "/asset/auditRefund.form?deviceId=" + deviceId.trim() + "&deviceName=" + deviceName.trim(),
             dataType: "html",
             success: function (msg) {
                 if ("audit success" == msg) {

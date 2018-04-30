@@ -32,10 +32,11 @@ public class ManagerController {
     private IDeviceService deviceService;
     @Autowired
     private IUnitService unitService;
-    private DeviceForm deviceForm=new DeviceForm();
-    private ApplyForm applyForm=new ApplyForm();
-    private RefundForm refundForm=new RefundForm();
-    private RepairForm repairForm=new RepairForm();
+    private DeviceForm deviceForm = new DeviceForm();
+    private ApplyForm applyForm = new ApplyForm();
+    private RefundForm refundForm = new RefundForm();
+    private RepairForm repairForm = new RepairForm();
+
     //审核申请
     @RequestMapping(value = "/auditApply.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
@@ -46,7 +47,7 @@ public class ManagerController {
         //设备名
         String deviceName = new String(request.getParameter("deviceName").getBytes("iso-8859-1"), "utf-8");
         //生成申请时间
-        String time= DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
+        String time = DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
         //通过cookie获得username
         final Cookie[] cookies = request.getCookies();
         String username = "";
@@ -59,11 +60,10 @@ public class ManagerController {
         }
         //查看对应关系
         DeviceForm deviceForm1 = deviceService.getDevice(deviceId);
-        ApplyForm applyForm1;
         if (deviceForm1.getDeviceName().equals(deviceName)) {
             //TODO 查看申请表的信息 由于设备的id唯一，所以此处采用设备id查询
             applyForm.setDeviceId(deviceId);
-            applyForm1 = deviceService.getApplyForm(applyForm);
+            ApplyForm applyForm1 = deviceService.getApplyForm(applyForm);
             //如果不为空说明有申请记录
             if (applyForm1 != null) {
                 applyForm1.setAuditName(username);
@@ -74,7 +74,7 @@ public class ManagerController {
                     deviceForm1.setUseStatus("0");
                     //修改设备表状态
                     int num = deviceService.modifyStatus(deviceForm1);
-                    //向申请表增加申请人信息
+                    //向申请表增加审核人信息
                     int num1 = deviceService.addApplyAuditName(applyForm1);
                     if (num == 1 && num1 == 1) {
                         return "audit success";
@@ -94,94 +94,133 @@ public class ManagerController {
             return "not match";
         }
     }
+
     //审核报修
     @RequestMapping(value = "/auditRepair.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
-    Object auditRepair(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{
-        //审核人
-        String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
-        //申请人
-        String applyName = new String(request.getParameter("applyName").getBytes("iso-8859-1"), "utf-8");
+    Object auditRepair(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         //todo 考虑到设备名的不唯一性，此处改为设备id
+        //设备id
         String deviceId = new String(request.getParameter("deviceId").getBytes("iso-8859-1"), "utf-8");
-        repairForm.setApplyName(applyName);
-        String time= DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
-        RepairForm repairForm1=deviceService.getRepairForm(repairForm);
-        if (repairForm1!=null){
-            repairForm1.setAuditName(username);
-            repairForm1.setAuditTime(time);
-        }else {
-            return "apply error";
-        }
-        DeviceForm deviceForm1=deviceService.getDevice(deviceId);
-        String status=deviceForm1.getUseStatus();
-        if ("4"==status){
-            deviceForm1.setUseStatus("2");
-            int num=deviceService.modifyStatus(deviceForm1);
-            int num1=deviceService.addRepairAuditName(repairForm1);
-            if (num==1&&num1==1){
-                return "audit success";
-            }else {
-                return "audit fail";
+        //设备名
+        String deviceName = new String(request.getParameter("deviceName").getBytes("iso-8859-1"), "utf-8");
+        String time = DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
+        //通过cookie获得username
+        final Cookie[] cookies = request.getCookies();
+        String username = "";
+        if (cookies != null) {
+            for (final Cookie cookie : cookies) {
+                if ("username".equals(cookie.getName())) {
+                    username = cookie.getValue();
+                }
             }
-        }else {
-            return "useStatus error";
+        }
+        //查看对应关系
+        DeviceForm deviceForm1 = deviceService.getDevice(deviceId);
+        if (deviceForm1.getDeviceName().equals(deviceName)) {
+            repairForm.setDeviceId(deviceId);
+            RepairForm repairForm1 = deviceService.getRepairForm(repairForm);
+            if (repairForm1 != null) {
+                repairForm1.setAuditName(username);
+                repairForm1.setAuditTime(time);
+                if ("4".equals(deviceForm1.getUseStatus())) {
+                    //修改成（毁坏）状态
+                    deviceForm1.setUseStatus("2");
+                    //修改设备表状态
+                    int num = deviceService.modifyStatus(deviceForm1);
+                    //向申请表增加审核人信息
+                    int num1 = deviceService.addRepairAuditName(repairForm1);
+                    if (num == 1 && num1 == 1) {
+                        return "audit success";
+                    } else {
+                        return "audit fail";
+                    }
+                } else {
+                    //不是申请状态
+                    return "useStatus error";
+                }
+            } else {
+                //申请表没有申请记录
+                return "apply error";
+            }
+        } else {
+            //不匹配
+            return "not match";
         }
     }
 
     //审核退还
     @RequestMapping(value = "/auditRefund.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
-    Object auditRefund(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{
-        //审核人
-        String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
-        //申请人
-        String applyName = new String(request.getParameter("applyName").getBytes("iso-8859-1"), "utf-8");
+    Object auditRefund(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         //todo 考虑到设备的不唯一性，此处改为设备id
+        //设备id
         String deviceId = new String(request.getParameter("deviceId").getBytes("iso-8859-1"), "utf-8");
-        String time= DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
-        refundForm.setApplyName(applyName);
-        RefundForm refundForm1=deviceService.getRefundForm(refundForm);
-        if (refundForm1!=null){
-            refundForm1.setAuditName(username);
-            refundForm1.setAuditTime(time);
-        }else {
-            return "apply error";
-        }
-        DeviceForm deviceForm1=deviceService.getDevice(deviceId);
-        String status=deviceForm1.getUseStatus();
-        if ("5"==status){
-            deviceForm1.setUseStatus("1");
-            int num=deviceService.modifyStatus(deviceForm1);
-            int num1=deviceService.addRefundAuditName(refundForm1);
-            if (num==1&&num1==1){
-                return "audit success";
-            }else {
-                return "audit fail";
+        //设备名
+        String deviceName = new String(request.getParameter("deviceName").getBytes("iso-8859-1"), "utf-8");
+        String time = DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
+        //通过cookie获得username
+        final Cookie[] cookies = request.getCookies();
+        String username = "";
+        if (cookies != null) {
+            for (final Cookie cookie : cookies) {
+                if ("username".equals(cookie.getName())) {
+                    username = cookie.getValue();
+                }
             }
-        }else {
-            return "useStatus error";
+        }
+        //查看对应关系
+        DeviceForm deviceForm1 = deviceService.getDevice(deviceId);
+        if (deviceForm1.getDeviceName().equals(deviceName)) {
+            refundForm.setDeviceId(deviceId);
+            RefundForm refundForm1 = deviceService.getRefundForm(refundForm);
+            if (refundForm1 != null) {
+                refundForm1.setAuditName(username);
+                refundForm1.setAuditTime(time);
+                if ("5".equals(deviceForm1.getUseStatus())) {
+                    //修改成（闲置）状态
+                    deviceForm1.setUseStatus("1");
+                    //修改设备表状态
+                    int num = deviceService.modifyStatus(deviceForm1);
+                    //向退还表表增加审核人信息
+                    int num1 = deviceService.addRefundAuditName(refundForm1);
+                    if (num == 1 && num1 == 1) {
+                        return "audit success";
+                    } else {
+                        return "audit fail";
+                    }
+                } else {
+                    //不是申请状态
+                    return "useStatus error";
+                }
+            } else {
+                //申请表没有申请记录
+                return "apply error";
+            }
+        } else {
+            //不匹配
+            return "not match";
         }
     }
 
     //设备入库
     @RequestMapping(value = "/addDevice.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
-    Object addDevice(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{
-        String deviceName=new String(request.getParameter("deviceName").getBytes("iso-8859-1"), "utf-8");
+    Object addDevice(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        String deviceName = new String(request.getParameter("deviceName").getBytes("iso-8859-1"), "utf-8");
         deviceForm.setDeviceName(deviceName);
         //todo 此处考虑到设备id过于复杂，放弃UUID，该用数据库id列自增
 //        String id=RandomAccessUtil.getRandom("Device");
 //        deviceForm.setDeviceId(id);
         deviceForm.setUseStatus("1");
-        String time= DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
+        String time = DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
         deviceForm.setStorageTime(time);
         System.out.println(JSON.toJSONString(deviceName));
-        int num=deviceService.addDevice(deviceForm);
+        int num = deviceService.addDevice(deviceForm);
         System.out.println(num);
         if (num == 1) {
             return "add success";
-        }else {
+        } else {
             return "add fail";
         }
     }
