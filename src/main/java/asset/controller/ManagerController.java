@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
@@ -39,34 +40,58 @@ public class ManagerController {
     @RequestMapping(value = "/auditApply.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
     Object auditApply(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-        //审核人
-        String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
-        //申请人
-        String applyName = new String(request.getParameter("applyName").getBytes("iso-8859-1"), "utf-8");
         //todo 考虑到设备的不唯一性，此处改为设备id
+        //设备id
         String deviceId = new String(request.getParameter("deviceId").getBytes("iso-8859-1"), "utf-8");
+        //设备名
+        String deviceName = new String(request.getParameter("deviceName").getBytes("iso-8859-1"), "utf-8");
+        //生成申请时间
         String time= DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
-        applyForm.setApplyName(applyName);
-        ApplyForm applyForm1=deviceService.getApplyForm(applyForm);
-        if (applyForm1!=null){
-            applyForm1.setAuditName(username);
-            applyForm1.setAuditTime(time);
-        }else{
-            return "apply error";
-        }
-        DeviceForm deviceForm1=deviceService.getDevice(deviceId);
-        String status=deviceForm1.getUseStatus();
-        if ("3"==status){
-            deviceForm1.setUseStatus("0");
-            int num=deviceService.modifyStatus(deviceForm1);
-            int num1=deviceService.addApplyAuditName(applyForm1);
-            if (num==1&&num1==1){
-                return "audit success";
-            }else {
-                return "audit fail";
+        //通过cookie获得username
+        final Cookie[] cookies = request.getCookies();
+        String username = "";
+        if (cookies != null) {
+            for (final Cookie cookie : cookies) {
+                if ("username".equals(cookie.getName())) {
+                    username = cookie.getValue();
+                }
             }
-        }else {
-            return "useStatus error";
+        }
+        //查看对应关系
+        DeviceForm deviceForm1 = deviceService.getDevice(deviceId);
+        ApplyForm applyForm1;
+        if (deviceForm1.getDeviceName().equals(deviceName)) {
+            //TODO 查看申请表的信息 由于设备的id唯一，所以此处采用设备id查询
+            applyForm.setDeviceId(deviceId);
+            applyForm1 = deviceService.getApplyForm(applyForm);
+            //如果不为空说明有申请记录
+            if (applyForm1 != null) {
+                applyForm1.setAuditName(username);
+                applyForm1.setAuditTime(time);
+                //判断状态是否是申请状态？
+                if ("3".equals(deviceForm1.getUseStatus())) {
+                    //修改成（在用）状态
+                    deviceForm1.setUseStatus("0");
+                    //修改设备表状态
+                    int num = deviceService.modifyStatus(deviceForm1);
+                    //向申请表增加申请人信息
+                    int num1 = deviceService.addApplyAuditName(applyForm1);
+                    if (num == 1 && num1 == 1) {
+                        return "audit success";
+                    } else {
+                        return "audit fail";
+                    }
+                } else {
+                    //不是申请状态
+                    return "useStatus error";
+                }
+            } else {
+                //申请表没有申请记录
+                return "apply error";
+            }
+        } else {
+            //不匹配
+            return "not match";
         }
     }
     //审核报修
@@ -77,7 +102,7 @@ public class ManagerController {
         String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
         //申请人
         String applyName = new String(request.getParameter("applyName").getBytes("iso-8859-1"), "utf-8");
-        //todo 考虑到设备的不唯一性，此处改为设备id
+        //todo 考虑到设备名的不唯一性，此处改为设备id
         String deviceId = new String(request.getParameter("deviceId").getBytes("iso-8859-1"), "utf-8");
         repairForm.setApplyName(applyName);
         String time= DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");

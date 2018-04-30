@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>审核申请</title>
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="../css/auditApply.css">
+</head>
+<body>
+<div>
+    <form>
+        <div id="auditApply">
+            <div data-role="header">
+                <div class="title">审核申请</div>
+            </div>
+            <br>
+            <div class="content">
+                <div>
+                    <label for="deviceId"></label>
+                    <input type="text" class="input" maxlength="16" autocomplete="off" placeholder="请输入设备id"
+                           id="deviceId">
+                </div>
+                <br>
+                <div>
+                    <label for="deviceName"></label>
+                    <input type="text" class="input" maxlength="16" autocomplete="off" placeholder="请输入设备名"
+                           id="deviceName">
+                </div>
+                <br>
+                <div>
+                    <input type="button" class="auditApplyButton" value="通过申请" data-inline="true"
+                           onclick="auditApply()">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function auditApply() {
+        var deviceId = $("#deviceId").val();
+        var deviceName = $("#deviceName").val();
+        $.ajax({
+            type: "post",
+            url: "/asset/auditApply.form?deviceId=" + deviceId.trim() + "&deviceName=" + deviceName.trim(),
+            dataType: "html",
+            success: function (msg) {
+                if ("audit success" == msg) {
+                    alert("审核通过")
+                } else if ("audit fail" == msg) {
+                    alert("审核失败")
+                } else if ("not match" == msg) {
+                    alert("设备名与设备号不匹配")
+                } else if ("useStatus error" == msg) {
+                    alert("使用状态错误")
+                } else if ("apply error" == msg) {
+                    alert("没有申请记录")
+                } else {
+                    alert("输入有误")
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

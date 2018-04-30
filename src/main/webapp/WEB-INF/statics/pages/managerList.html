@@ -80,9 +80,6 @@
                            "\t\t\t\t\t\t<th>设备名</th>\n" +
                            "\t\t\t\t\t\t<th>入库时间</th>\n" +
                            "\t\t\t\t\t\t<th>使用状态</th>\n" +
-                           // "\t\t\t\t\t\t<th>手机号</th>\n" +
-                           // "\t\t\t\t\t\t<th>状态</th>\n" +
-                           // "\t\t\t\t\t\t<th>创建时间</th>\n" +
                            "\t\t\t\t\t</tr>";
                         var deviceLists = eval('(' + msg + ')');
                         var content="";
@@ -123,12 +120,10 @@
                                 else {
                                     content+="\t\t\t\t\t</tr>";
 								}
-                                // alert(key+':'+deviceLists[i][key]);
                             }
                         }
                         var deviceTableLists=header+content;
                         $("#deviceform").html(deviceTableLists);
-                        // alert(deviceTableLists);
                     }
                 })
             })
