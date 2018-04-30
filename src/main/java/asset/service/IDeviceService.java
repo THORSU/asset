@@ -40,4 +40,7 @@ public interface IDeviceService {
     public int addRefundAuditName(RefundForm refundForm);
     //设备入库
     public int addDevice(DeviceForm deviceForm);
+
+    //设备出库
+    public int delDevice(DeviceForm deviceForm);
 }

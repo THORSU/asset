@@ -89,4 +89,9 @@ public class DeviceServiceImpl implements IDeviceService {
     public int addDevice(DeviceForm deviceForm) {
         return deviceMapper.addDevice(deviceForm);
     }
+
+    @Override
+    public int delDevice(DeviceForm deviceForm) {
+        return deviceMapper.delDevice(deviceForm);
+    }
 }

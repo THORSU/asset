@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>删除设备</title>
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="../css/delDevice.css">
+</head>
+<body>
+<div>
+    <form>
+        <div id="delDevice">
+            <div data-role="header">
+                <div class="title">删除设备</div>
+            </div>
+            <br>
+            <div class="content">
+                <div>
+                    <label for="deviceId"></label>
+                    <input type="text" class="input" maxlength="16" autocomplete="off" placeholder="请输入设备id"
+                           id="deviceId">
+                </div>
+                <br>
+                <div>
+                    <label for="deviceName"></label>
+                    <input type="text" class="input" maxlength="16" autocomplete="off" placeholder="请输入设备名"
+                           id="deviceName">
+                </div>
+                <br>
+                <div>
+                    <input type="button" class="delDeviceButton" value="删除设备" data-inline="true" onclick="delDevice()">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function delDevice() {
+        var deviceId = $("#deviceId").val();
+        var deviceName = $("#deviceName").val();
+        $.ajax({
+            type: "post",
+            url: "/asset/delDevice.form?deviceId=" + deviceId.trim() + "&deviceName=" + deviceName.trim(),
+            dataType: "html",
+            success: function (msg) {
+                if ("del success" == msg) {
+                    alert("删除成功")
+                } else if ("del fail" == msg) {
+                    alert("删除失败")
+                } else if ("not match" == msg) {
+                    alert("设备名与设备号不匹配")
+                } else {
+                    alert("输入有误")
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

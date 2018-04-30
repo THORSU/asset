@@ -3,28 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>增加设备</title>
-    <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="../css/addDevice.css">
 </head>
 <body>
 <div>
-    <label for="deviceName"></label>
-    <input type="text" maxlength="16" autocomplete="off" placeholder="请输入设备名" id="deviceName">
-</div>
-<div>
-    <input type="button" value="添加设备" data-inline="true" onclick="addDevice()">
+    <form>
+        <div id="addDevice">
+            <div data-role="header">
+                <div class="title">增加设备</div>
+            </div>
+            <br>
+            <div class="content">
+                <div>
+                    <label for="deviceName"></label>
+                    <input type="text" class="input" maxlength="16" autocomplete="off" placeholder="请输入设备名"
+                           id="deviceName">
+                </div>
+                <br>
+                <div>
+                    <input type="button" class="addDeviceButton" value="添加设备" data-inline="true" onclick="addDevice()">
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 <script type="text/javascript">
     function addDevice() {
-        var deviceName=$("#deviceName");
+        var deviceName = $("#deviceName").val();
         $.ajax({
-            type:"post",
-            url:"/asset/addDevice.form?deviceName="+deviceName.trim(),
-            dataType:"html",
-            success:function (msg) {
-                if ("add success"==msg){
+            type: "post",
+            url: "/asset/addDevice.form?deviceName=" + deviceName.trim(),
+            dataType: "html",
+            success: function (msg) {
+                if ("add success" == msg) {
                     alert("添加成功")
-                }else{
+                } else {
                     alert("添加失败")
                 }
             }

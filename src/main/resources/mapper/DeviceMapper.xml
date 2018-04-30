@@ -62,6 +62,10 @@
     <!--设备入库-->
     <insert id="addDevice" parameterType="asset.pojo.DeviceForm">
         INSERT INTO `DeviceForm` (deviceName,useStatus,storageTime)
-        VALUES (#{deviceName}，#{useStatus}，#{storageTime})
+        VALUES (#{deviceName},#{useStatus},#{storageTime})
     </insert>
+    <!--设备出库-->
+    <delete id="delDevice" parameterType="asset.pojo.DeviceForm">
+        DELETE FROM `DeviceForm` WHERE deviceId=#{deviceId}
+    </delete>
 </mapper>

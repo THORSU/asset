@@ -7,8 +7,7 @@ import asset.pojo.RepairForm;
 import asset.service.IDeviceService;
 import asset.service.IUnitService;
 import asset.utils.DataUtil;
-import asset.utils.RandomAccessUtil;
-import com.sun.org.apache.regexp.internal.RE;
+import com.alibaba.fastjson.JSON;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -152,11 +151,32 @@ public class ManagerController {
         deviceForm.setUseStatus("1");
         String time= DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
         deviceForm.setStorageTime(time);
+        System.out.println(JSON.toJSONString(deviceName));
         int num=deviceService.addDevice(deviceForm);
-        if (num != 0){
+        System.out.println(num);
+        if (num == 1) {
             return "add success";
         }else {
             return "add fail";
+        }
+    }
+
+    //设备出库
+    @RequestMapping(value = "/delDevice.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public @ResponseBody
+    Object delDevice(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        String deviceId = request.getParameter("deviceId").trim();
+        String deviceName = new String(request.getParameter("deviceName").getBytes("iso-8859-1"), "utf-8");
+        DeviceForm deviceForm1 = deviceService.getDevice(deviceId);
+        if (deviceForm1.getDeviceName().equals(deviceName)) {
+            int num = deviceService.delDevice(deviceForm1);
+            if (1 == num) {
+                return "del success";
+            } else {
+                return "del fail";
+            }
+        } else {
+            return "not match";
         }
     }
 }

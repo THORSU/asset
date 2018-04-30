@@ -10,3 +10,15 @@ CREATE TABLE SenManager
 )
   AUTO_INCREMENT = 1,
   ENGINE = InnoDB;
+# 设备表.
+DROP TABLE IF EXISTS DeviceForm;
+CREATE TABLE DeviceForm
+(
+  deviceId    INT(11) AUTO_INCREMENT
+    PRIMARY KEY,
+  deviceName  VARCHAR(255) NULL,
+  useStatus   VARCHAR(255) NULL,
+  storageTime VARCHAR(255) NULL
+)
+  AUTO_INCREMENT = 1,
+  ENGINE = InnoDB;
