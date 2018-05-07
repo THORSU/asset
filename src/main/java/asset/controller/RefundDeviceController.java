@@ -5,6 +5,7 @@ import asset.pojo.RefundForm;
 import asset.pojo.Unit;
 import asset.service.IDeviceService;
 import asset.service.IUnitService;
+import asset.service.IUserService;
 import asset.utils.DataUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,18 +31,19 @@ public class RefundDeviceController {
     private IDeviceService deviceService;
     @Autowired
     private IUnitService unitService;
+    @Autowired
+    private IUserService userService;
 
-    private Unit unit;
-    private RefundForm refundForm;
+    private Unit unit = new Unit();
+    private RefundForm refundForm = new RefundForm();
 
     @RequestMapping(value = "/refundDevice.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
     Object refundDevice(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-        String unitName = new String(request.getParameter("unitName").getBytes("iso-8859-1"), "utf-8");
+        //todo 取消单位名
+//        String unitName = new String(request.getParameter("unitName").getBytes("iso-8859-1"), "utf-8");
         String deviceName = new String(request.getParameter("deviceName").getBytes("iso-8859-1"), "utf-8");
         String deviceId = new String(request.getParameter("deviceId").getBytes("iso-8859-1"), "utf-8");
-        refundForm=new RefundForm();
-
         final Cookie[] cookies = request.getCookies();
         String username = "";
         if (cookies != null) {
@@ -55,16 +57,17 @@ public class RefundDeviceController {
 //        deviceForm = new DeviceForm();
 //        deviceForm.setDeviceName(deviceName);
 //        DeviceForm deviceForm1 = deviceService.getDevice(deviceForm);
-        unit = new Unit();
-        unit.setUnitName(unitName);
-        Unit unit1 = unitService.getUnitId(unit);
-
-        refundForm.setDeviceName(deviceName);
-        refundForm.setUnitName(unitName);
-        refundForm.setApplyName(username);
+        //根据用户名获取单位id
+        String unitId = userService.getUnitId(username);
+        unit.setUnitId(unitId);
+        //获取单位名
+        Unit unit1 = unitService.getUnitName(unit);
         if (unit1 != null) {
             refundForm.setUnitId(unit1.getUnitId());
+            refundForm.setUnitName(unit1.getUnitName());
         }
+        refundForm.setDeviceName(deviceName);
+        refundForm.setApplyName(username);
         refundForm.setDeviceId(deviceId);
         DeviceForm deviceForm1=deviceService.getDevice(deviceId);
 //        refundForm.setId(RandomAccessUtil.getRandom("Refund"));

@@ -43,4 +43,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="superManagerLogin" parameterType="asset.pojo.PriManager" resultType="asset.pojo.PriManager">
 		SELECT * FROM `PriManager` WHERE name=#{name}
 	</select>
+	<!--获取老师单位id-->
+	<select id="getUnitId" parameterType="String" resultType="String">
+		SELECT unitId FROM Teacher WHERE name=#{username}
+	</select>
 </mapper> 

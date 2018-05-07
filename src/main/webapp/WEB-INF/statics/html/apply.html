@@ -15,12 +15,12 @@
             </div>
             <br>
             <div class="content">
-                <div>
-                    <label for="unitName"></label>
-                    <input type="text" maxlength="16" class="input" autocomplete="off" onblur="checkUnitName(this.id)"
-                           placeholder="请输入单位名" id="unitName">
-                </div>
-                <br>
+                <!--<div>-->
+                <!--<label for="unitName"></label>-->
+                <!--<input type="text" maxlength="16" class="input" autocomplete="off" onblur="checkUnitName(this.id)"-->
+                <!--placeholder="请输入单位名" id="unitName">-->
+                <!--</div>-->
+                <!--<br>-->
                 <div>
                     <label for="deviceName"></label>
                     <input type="text" maxlength="16" class="input" autocomplete="off" onblur="checkDeviceName(this.id)"
@@ -36,21 +36,21 @@
     </form>
 </div>
 <script type="text/javascript">
-    function checkUnitName(v) {
-        if (v == "unitName") {
-            var unitName = $("#unitName").val();
-            $.ajax({
-                type: "post",
-                url: "/asset/checkUnitName.form?unitName=" + unitName.trim(),
-                dataType: "html",
-                success: function (msg) {
-                    if (msg == "check failure") {
-                        alert("请输入正确的单位名！");
-                    }
-                }
-            })
-        }
-    }
+    // function checkUnitName(v) {
+    //     if (v == "unitName") {
+    //         var unitName = $("#unitName").val();
+    //         $.ajax({
+    //             type: "post",
+    //             url: "/asset/checkUnitName.form?unitName=" + unitName.trim(),
+    //             dataType: "html",
+    //             success: function (msg) {
+    //                 if (msg == "check failure") {
+    //                     alert("请输入正确的单位名！");
+    //                 }
+    //             }
+    //         })
+    //     }
+    // }
 
     function checkDeviceName(v) {
         if (v == "deviceName") {
@@ -69,11 +69,11 @@
     }
 
     function applyDevice() {
-        var unitName = $("#unitName").val();
+        // var unitName = $("#unitName").val();
         var deviceName = $("#deviceName").val();
         $.ajax({
             type: "post",
-            url: "/asset/applyDevice.form?&unitName=" + unitName.trim() + "&deviceName=" + deviceName.trim(),
+            url: "/asset/applyDevice.form?deviceName=" + deviceName.trim(),
             dataType: "html",
             success: function (msg) {
                 switch (msg) {

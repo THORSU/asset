@@ -5,6 +5,7 @@ import asset.pojo.DeviceForm;
 import asset.pojo.Unit;
 import asset.service.IDeviceService;
 import asset.service.IUnitService;
+import asset.service.IUserService;
 import asset.utils.DataUtil;
 import com.alibaba.fastjson.JSON;
 import org.apache.log4j.Logger;
@@ -32,18 +33,22 @@ public class ApplyDeviceController {
     private IDeviceService deviceService;
     @Autowired
     private IUnitService unitService;
+    @Autowired
+    private IUserService userService;
 
-    private DeviceForm deviceForm;
-    private ApplyForm applyForm;
-    private Unit unit;
+    private DeviceForm deviceForm = new DeviceForm();
+    ;
+    private ApplyForm applyForm = new ApplyForm();
+    private Unit unit = new Unit();
+    ;
 
     @RequestMapping(value = "/applyDevice.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
     Object applyDevice(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 //        String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
-        String unitName = new String(request.getParameter("unitName").getBytes("iso-8859-1"), "utf-8");
+        //todo 改为自动获取单位名
+//        String unitName = new String(request.getParameter("unitName").getBytes("iso-8859-1"), "utf-8");
         String deviceName = new String(request.getParameter("deviceName").getBytes("iso-8859-1"), "utf-8");
-        applyForm = new ApplyForm();
         final Cookie[] cookies = request.getCookies();
         String username = "";
         if (cookies != null) {
@@ -53,7 +58,6 @@ public class ApplyDeviceController {
                 }
             }
         }
-        deviceForm = new DeviceForm();
         deviceForm.setDeviceName(deviceName);
         DeviceForm deviceForm1=new DeviceForm();
         List<DeviceForm> deviceFormList = deviceService.getDeviceList(deviceForm);
@@ -68,21 +72,21 @@ public class ApplyDeviceController {
         }
         System.out.println(JSON.toJSONString(deviceForm1));
         System.out.println(deviceForm1.getDeviceId());
+
         String deviceId=deviceForm1.getDeviceId();
         applyForm.setDeviceId(deviceId);
         applyForm.setDeviceName(deviceName);
-        unit = new Unit();
-        unit.setUnitName(unitName);
-        Unit unit1 = unitService.getUnitId(unit);
 
-
-        applyForm.setUnitName(unitName);
-
-        applyForm.setApplyName(username);
-
+        //根据用户名获取单位id
+        String unitId = userService.getUnitId(username);
+        unit.setUnitId(unitId);
+        //获取单位名
+        Unit unit1 = unitService.getUnitName(unit);
         if (unit1 != null) {
             applyForm.setUnitId(unit1.getUnitId());
+            applyForm.setUnitName(unit1.getUnitName());
         }
+        applyForm.setApplyName(username);
 //        applyForm.setId(RandomAccessUtil.getRandom("Apply"));
         String time= DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
         applyForm.setApplyTime(time);

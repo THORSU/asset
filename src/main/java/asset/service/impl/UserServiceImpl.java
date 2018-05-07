@@ -54,4 +54,9 @@ public class UserServiceImpl implements IUserService {
     public PriManager superManagerLogin(PriManager priManager) {
         return userMapper.superManagerLogin(priManager);
     }
+
+    @Override
+    public String getUnitId(String username) {
+        return userMapper.getUnitId(username);
+    }
 }

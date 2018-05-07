@@ -11,6 +11,6 @@
         SELECT * FROM `Unit` WHERE unitName=#{unitName}
     </select>
     <select id="getUnitName" parameterType="asset.pojo.Unit" resultType="asset.pojo.Unit">
-        SELECT * FROM `Unit` WHERE unitName=#{unitName}
+        SELECT * FROM `Unit` WHERE unitId=#{unitId}
     </select>
 </mapper>
