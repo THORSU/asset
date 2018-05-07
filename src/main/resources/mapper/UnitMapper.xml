@@ -13,4 +13,7 @@
     <select id="getUnitName" parameterType="asset.pojo.Unit" resultType="asset.pojo.Unit">
         SELECT * FROM `Unit` WHERE unitId=#{unitId}
     </select>
+    <insert id="addUnit" parameterType="asset.pojo.Unit">
+        INSERT INTO `Unit` (unitId, unitName) VALUES (#{unitId},#{unitName})
+    </insert>
 </mapper>

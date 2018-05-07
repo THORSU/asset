@@ -23,4 +23,9 @@ public class UnitServiceImpl implements IUnitService {
     public Unit getUnitName(Unit unit) {
         return unitMapper.getUnitName(unit);
     }
+
+    @Override
+    public int addUnit(Unit unit) {
+        return unitMapper.addUnit(unit);
+    }
 }

@@ -37,10 +37,8 @@ public class ApplyDeviceController {
     private IUserService userService;
 
     private DeviceForm deviceForm = new DeviceForm();
-    ;
     private ApplyForm applyForm = new ApplyForm();
     private Unit unit = new Unit();
-    ;
 
     @RequestMapping(value = "/applyDevice.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody

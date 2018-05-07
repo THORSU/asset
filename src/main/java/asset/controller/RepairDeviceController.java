@@ -35,7 +35,6 @@ public class RepairDeviceController {
     private IUserService userService;
 
     private Unit unit = new Unit();
-
     private RepairForm repairForm = new RepairForm();
 
     @RequestMapping(value = "/repairDevice.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")

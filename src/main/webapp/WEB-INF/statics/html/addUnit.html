@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>增加单位对应关系</title>
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="../css/addUnit.css">
+</head>
+<body>
+<div>
+    <form>
+        <div id="addUnit">
+            <div data-role="header">
+                <div class="title">增加单位</div>
+            </div>
+            <br>
+            <div class="content">
+                <div>
+                    <label for="unitId"></label>
+                    <input type="text" class="input" maxlength="16" autocomplete="off" placeholder="请输入单位id"
+                           id="unitId">
+                </div>
+                <br>
+                <div>
+                    <label for="unitName"></label>
+                    <input type="text" class="input" maxlength="16" autocomplete="off" placeholder="请输入设备名"
+                           id="unitName">
+                </div>
+                <br>
+                <div>
+                    <input type="button" class="addUnitButton" value="添加设备" data-inline="true" onclick="addUnit()">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function addUnit() {
+        var unitId = $("#unitId").val();
+        var unitName = $("#unitName").val();
+        $.ajax({
+            type: "post",
+            url: "/asset/addUnit.form?unitId=" + unitId.trim() + "&unitName=" + unitName.trim(),
+            dataType: "html",
+            success: function (msg) {
+                if ("add success" == msg) {
+                    alert("添加成功")
+                } else if ("add fail" == msg) {
+                    alert("添加失败")
+                } else if ("already exist" == msg) {
+                    alert("已存在")
+                } else {
+                    alert("系统错误")
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>
