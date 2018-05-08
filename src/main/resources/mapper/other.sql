@@ -1,4 +1,4 @@
-# 业务管理员
+# 1业务管理员
 DROP TABLE IF EXISTS SenManager;
 CREATE TABLE SenManager
 (
@@ -10,7 +10,7 @@ CREATE TABLE SenManager
 )
   AUTO_INCREMENT = 1,
   ENGINE = InnoDB;
-# 设备表.
+# 2设备表.
 DROP TABLE IF EXISTS DeviceForm;
 CREATE TABLE DeviceForm
 (
@@ -22,7 +22,7 @@ CREATE TABLE DeviceForm
 )
   AUTO_INCREMENT = 1,
   ENGINE = InnoDB;
-# 申请设备表
+# 3申请设备表
 DROP TABLE IF EXISTS ApplyForm;
 CREATE TABLE ApplyForm
 (
@@ -47,18 +47,17 @@ CREATE TABLE ApplyForm
   COMMENT '申请时间'
 )
   ENGINE = InnoDB;
-# 设备信息表
-DROP TABLE IF EXISTS DeviceForm;
-CREATE TABLE DeviceForm
+# 4超级管理员表
+DROP TABLE IF EXISTS PriManager;
+CREATE TABLE PriManager
 (
-  deviceId    INT(11) AUTO_INCREMENT
+  id       INT(11) AUTO_INCREMENT
     PRIMARY KEY,
-  deviceName  VARCHAR(255) NULL,
-  useStatus   VARCHAR(255) NULL,
-  storageTime VARCHAR(255) NULL
+  name     VARCHAR(255) NULL,
+  password VARCHAR(255) NULL
 )
   ENGINE = InnoDB;
-# 退还表
+# 5退还表
 DROP TABLE IF EXISTS RefundForm;
 CREATE TABLE RefundForm
 (
@@ -74,7 +73,7 @@ CREATE TABLE RefundForm
   refundTime VARCHAR(255) NULL
 )
   ENGINE = InnoDB;
-# 报修表
+# 6报修表
 DROP TABLE IF EXISTS RepairForm;
 CREATE TABLE RepairForm
 (
@@ -90,7 +89,7 @@ CREATE TABLE RepairForm
   repairTime VARCHAR(255) NULL
 )
   ENGINE = InnoDB;
-#单位表
+#7单位表
 DROP TABLE IF EXISTS Unit;
 CREATE TABLE Unit
 (
@@ -100,7 +99,7 @@ CREATE TABLE Unit
   unitName VARCHAR(255) NULL
 )
   ENGINE = InnoDB;
-#老师表
+#8老师表
 CREATE TABLE Teacher
 (
   id       INT AUTO_INCREMENT
