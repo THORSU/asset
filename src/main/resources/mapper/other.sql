@@ -90,3 +90,23 @@ CREATE TABLE RepairForm
   repairTime VARCHAR(255) NULL
 )
   ENGINE = InnoDB;
+#单位表
+DROP TABLE IF EXISTS Unit;
+CREATE TABLE Unit
+(
+  id       INT AUTO_INCREMENT
+    PRIMARY KEY,
+  unitId   VARCHAR(255) NULL,
+  unitName VARCHAR(255) NULL
+)
+  ENGINE = InnoDB;
+#老师表
+CREATE TABLE Teacher
+(
+  id       INT AUTO_INCREMENT
+    PRIMARY KEY,
+  name     VARCHAR(255) NULL,
+  password VARCHAR(255) NULL,
+  unitId   VARCHAR(255) NULL
+)
+  ENGINE = InnoDB;
