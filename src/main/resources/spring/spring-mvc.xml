@@ -28,6 +28,8 @@
     <mvc:resources mapping="/*.html" location="/WEB-INF/statics/html/" />
     <mvc:resources mapping="/css/*.css" location="/WEB-INF/statics/css/" />
     <mvc:resources mapping="/img/**" location="/WEB-INF/statics/img/" />
+    <mvc:resources mapping="/plugins/**" location="/WEB-INF/statics/plugins/"/>
+    <mvc:resources mapping="/pages/**" location="/WEB-INF/statics/pages/"/>
     <mvc:resources mapping="/**.**" location="/WEB-INF/statics/"/>
     <mvc:resources mapping="/**" location="/WEB-INF/statics/"/>
 
