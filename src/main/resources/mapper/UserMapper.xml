@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="teacherLogin" parameterType="asset.pojo.Teacher" resultMap="UserInfoResult">
         SELECT * FROM `Teacher` WHERE name=#{name}
     </select>
-
+	<!--判断数据库有没有此用户-->
 	<select id="checkUserName" parameterType="asset.pojo.Teacher" resultMap="UserInfoResult">
 		SELECT * FROM `Teacher` WHERE name=#{name}
 	</select>

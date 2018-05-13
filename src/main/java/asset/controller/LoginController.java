@@ -35,8 +35,10 @@ public class LoginController {
     Object teacherLogin(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         String username = new String(request.getParameter("username").getBytes("iso-8859-1"),"utf-8");
         String password = request.getParameter("password").trim();
+
         teacher.setName(username);
         teacher.setPassword(password);
+
         Teacher res = userService.teacherLogin(teacher);
 //        System.out.println(res.getPassword());
         if (res!=null){

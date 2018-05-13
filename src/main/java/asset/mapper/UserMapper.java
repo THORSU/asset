@@ -19,14 +19,12 @@ public interface UserMapper {
     public SenManager senManagerLogin(SenManager senManager);
     //添加业务管理员
     public int addSenManager(SenManager senManager);
-
     //更新业务管理员状态
     public int updateManager(SenManager senManager);
     //删除业务管理员
     public int delSenManager(SenManager senManager);
     //超级管理员登陆
     public PriManager superManagerLogin(PriManager priManager);
-
     //获取老师单位id
     public String getUnitId(String username);
 }

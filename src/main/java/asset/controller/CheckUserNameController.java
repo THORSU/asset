@@ -2,7 +2,6 @@ package asset.controller;
 
 import asset.pojo.Teacher;
 import asset.service.IUserService;
-import asset.service.impl.UserServiceImpl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,18 +19,17 @@ public class CheckUserNameController {
     private static Logger logger = Logger.getLogger(CheckUserNameController.class);
     @Autowired
     private IUserService userService;
-    private Teacher teacher;
+    private Teacher teacher = new Teacher();
+
     @RequestMapping(value = "/CheckUserName.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
     Object CheckUserName(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-        String username = new String(request.getParameter("username").getBytes("iso-8859-1"),"utf-8");
-        logger.info(username);
-        teacher=new Teacher();
+        String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
         teacher.setName(username);
-        Teacher res=userService.checkUserName(teacher);
-        if (res!=null){
+        Teacher res = userService.checkUserName(teacher);
+        if (res != null) {
             return "already exist";
-        }else {
+        } else {
             return "no exist";
         }
     }
