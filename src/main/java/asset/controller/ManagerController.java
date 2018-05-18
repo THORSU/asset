@@ -46,7 +46,7 @@ public class ManagerController {
         String deviceId = new String(request.getParameter("deviceId").getBytes("iso-8859-1"), "utf-8");
         //设备名
         String deviceName = new String(request.getParameter("deviceName").getBytes("iso-8859-1"), "utf-8");
-        //生成申请时间
+        //生成审核时间
         String time = DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
         //通过cookie获得username
         final Cookie[] cookies = request.getCookies();
