@@ -32,16 +32,22 @@ public class SignUpController {
     private SenManager senManager=new SenManager();
     @Autowired
     private IUnitService unitService;
+
+    //教师注册
     @RequestMapping(value = "/SignUp.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
     Object SignUp(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         String username = new String(request.getParameter("username").getBytes("iso-8859-1"),"utf-8");
         String password = request.getParameter("password").trim();
+        String password1 = request.getParameter("password1").trim();
         String unitName = new String(request.getParameter("unit").getBytes("iso-8859-1"),"utf-8");
         unit=new Unit();
         unit.setUnitName(unitName);
         Unit res1=unitService.getUnitId(unit);
 //        System.out.println(res1.getUnitId());
+        if (!password1.equals(password)) {
+            return "password error";
+        }
         if (res1==null){
             return "search unitId fail";
         }else {
@@ -49,7 +55,6 @@ public class SignUpController {
             teacher.setUnitId(res1.getUnitId());
             teacher.setName(username);
             teacher.setPassword(password);
-//            teacher.setId(RandomAccessUtil.getRandom("Teacher"));
             int res=userService.signUp(teacher);
             if (res==1){
                 logger.info(res);

@@ -29,6 +29,12 @@
                     </div>
                     <br>
                     <div class="my_re_input">
+                        <label for="password1"></label>
+                        <input type="password" class="input" maxlength="16" autocomplete="off" placeholder="请再此输入密码"
+                               id="password1">
+                    </div>
+                    <br>
+                    <div class="my_re_input">
                         <label for="unit"></label>
                         <input type="text" class="input" maxlength="16" autocomplete="off" placeholder="请输入单位名"
                                id="unit">
@@ -118,6 +124,7 @@
             var username = $("#username").val();
             console.log(username)
             var password = $("#password").val();
+            var password1 = $("#password1").val();
             var unit = $("#unit").val();
             if (flag != true) {
                 if (username == "" || password == "" || unit == "") {
@@ -125,11 +132,14 @@
                 } else {
                     $.ajax({
                         type: "post",
-                        url: "/asset/SignUp.form?username=" + username.trim() + "&password=" + password.trim() + "&unit=" + unit.trim(),
+                        url: "/asset/SignUp.form?username=" + username.trim() + "&password=" + password.trim() + "&password1=" + password1.trim() + "&unit=" + unit.trim(),
                         dataType: "html",
                         success: function (msg) {
                             console.log(msg);
                             switch (msg) {
+                                case "password error":
+                                    alert("密码不一致");
+                                    break;
                                 case "search unitId fail":
                                     alert("单位名错误");
                                     break;
