@@ -41,7 +41,7 @@ public class SignUpController {
         unit=new Unit();
         unit.setUnitName(unitName);
         Unit res1=unitService.getUnitId(unit);
-        System.out.println(res1.getUnitId());
+//        System.out.println(res1.getUnitId());
         if (res1==null){
             return "search unitId fail";
         }else {
