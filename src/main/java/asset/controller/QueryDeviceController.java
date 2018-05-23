@@ -36,11 +36,13 @@ public class QueryDeviceController {
         if (useStatus.equals("101")) {
             deviceFormList = deviceService.getDeviceList1();
             // System.out.println(deviceFormList.get(1).toString());
+            //        if (useStatus.equals("101")) {
         } else {
             deviceFormList = deviceService.getDeviceLists(useStatus);
             //System.out.println(deviceFormList.get(1).toString());
 
         }
         return JSON.toJSONString(deviceFormList);
+        //把对象转换为相应字符串
     }
 }

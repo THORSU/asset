@@ -66,6 +66,7 @@
             url:"/asset/teacherLogin.form?username="+username.trim()+"&password="+password.trim(),
             dataType:"html",
             success:function (msg) {
+                //concole.log(msg);
                 switch (msg){
                     case "login success":
                         window.location.href = 'index.html';

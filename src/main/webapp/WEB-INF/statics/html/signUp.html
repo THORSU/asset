@@ -128,6 +128,7 @@
                         url: "/asset/SignUp.form?username=" + username.trim() + "&password=" + password.trim() + "&unit=" + unit.trim(),
                         dataType: "html",
                         success: function (msg) {
+                            console.log(msg);
                             switch (msg) {
                                 case "search unitId fail":
                                     alert("单位名错误");

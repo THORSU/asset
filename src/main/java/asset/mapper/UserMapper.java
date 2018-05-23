@@ -13,7 +13,6 @@ public interface UserMapper {
     public Teacher teacherLogin(Teacher teacher);
     //验证用户名是否被注册
     public Teacher checkUserName(Teacher teacher);
-    //老师注册
     public int signUp(Teacher teacher);
     //业务管理员登录
     public SenManager senManagerLogin(SenManager senManager);

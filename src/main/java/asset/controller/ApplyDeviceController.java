@@ -64,9 +64,7 @@ public class ApplyDeviceController {
                 System.out.println(deviceFormList.get(i).toString());
                 deviceForm1=deviceFormList.get(i);
             }
-//            else {
-//                return "useStatus error";
-//            }
+
         }
         System.out.println(JSON.toJSONString(deviceForm1));
         System.out.println(deviceForm1.getDeviceId());
