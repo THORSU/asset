@@ -243,4 +243,30 @@ public class ManagerController {
             return "not match";
         }
     }
+
+    //修改设备
+    @RequestMapping(value = "/editDevice.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public @ResponseBody
+    Object editDevice(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        //设备名
+        String deviceId = request.getParameter("deviceId").trim();
+        //原设备名
+        String deviceName = new String(request.getParameter("deviceName").getBytes("iso-8859-1"), "utf-8");
+        //新设备名
+        String newDeviceName = new String(request.getParameter("newDeviceName").getBytes("iso-8859-1"), "utf-8");
+
+        DeviceForm res = deviceService.getDevice(deviceId);
+        if (!res.getDeviceName().equals(deviceName)) {
+            return "check error";
+        }
+        deviceForm.setDeviceId(deviceId);
+        deviceForm.setDeviceName(newDeviceName);
+        Integer num = deviceService.editDevice(deviceForm);
+        if (num == 1) {
+            return "edit success";
+        } else {
+            return "edit fail";
+        }
+
+    }
 }

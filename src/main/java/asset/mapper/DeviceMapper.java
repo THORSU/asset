@@ -44,4 +44,7 @@ public interface DeviceMapper {
     public int addDevice(DeviceForm deviceForm);
     //设备出库
     public int delDevice(DeviceForm deviceForm);
+
+    //编辑设备
+    public int editDevice(DeviceForm deviceForm);
 }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改设备</title>
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="../css/editDevice.css">
+</head>
+<body>
+<div>
+    <form>
+        <div id="editDevice">
+            <div data-role="header">
+                <div class="title">修改设备</div>
+            </div>
+            <br>
+            <div class="content">
+                <div>
+                    <label for="deviceId"></label>
+                    <input type="text" class="input" maxlength="16" autocomplete="off" placeholder="请输入设备id"
+                           id="deviceId">
+                </div>
+                <br>
+                <div>
+                    <label for="deviceName"></label>
+                    <input type="text" class="input" maxlength="16" autocomplete="off" placeholder="请输入设备名"
+                           id="deviceName">
+                </div>
+                <br>
+                <div>
+                    <label for="newDeviceName"></label>
+                    <input type="text" class="input" maxlength="16" autocomplete="off" placeholder="请输入新设备名"
+                           id="newDeviceName">
+                </div>
+                <br>
+                <div>
+                    <input type="button" class="editDeviceButton" value="修改设备" data-inline="true"
+                           onclick="editDevice()">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function editDevice() {
+        var deviceId = $("#deviceId").val();
+        var deviceName = $("#deviceName").val();
+        var newDeviceName = $("#newDeviceName").val();
+        $.ajax({
+            type: "post",
+            url: "/asset/editDevice.form?deviceId=" + deviceId.trim() + "&deviceName=" + deviceName.trim() + "&newDeviceName=" + newDeviceName.trim(),
+            dataType: "html",
+            success: function (msg) {
+                if (msg == "check error") {
+                    alert("输入参数不一致");
+                } else if (msg == "edit success") {
+                    alert("修改成功");
+                } else {
+                    alert("修改失败");
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>
