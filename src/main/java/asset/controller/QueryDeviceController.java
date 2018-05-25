@@ -42,7 +42,8 @@ public class QueryDeviceController {
             //System.out.println(deviceFormList.get(1).toString());
 
         }
-        return JSON.toJSONString(deviceFormList);
         //把对象转换为相应字符串
+        return JSON.toJSONString(deviceFormList);
+
     }
 }
