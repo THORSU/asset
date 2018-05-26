@@ -74,6 +74,8 @@ public class RepairDeviceController {
         String time= DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
         repairForm.setRepairTime(time);
 //        repairForm.setId(RandomAccessUtil.getRandom("Repair"));
+        repairForm.setAuditName("");
+        repairForm.setAuditTime("");
         System.out.println(deviceForm1.getUseStatus());
         if ("0".equals(deviceForm1.getUseStatus())){
             deviceForm1.setUseStatus("4");

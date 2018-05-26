@@ -73,6 +73,8 @@ public class RefundDeviceController {
 //        refundForm.setId(RandomAccessUtil.getRandom("Refund"));
         String time = DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
         refundForm.setRefundTime(time);
+        refundForm.setAuditName("");
+        refundForm.setAuditTime("");
         if ("0".equals(deviceForm1.getUseStatus())) {
             Integer num = deviceService.refundDevice(refundForm);
             deviceForm1.setUseStatus("5");

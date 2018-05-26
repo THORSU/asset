@@ -22,45 +22,45 @@
     </update>
     <!--申请设备-->
     <insert id="applyDevice" parameterType="asset.pojo.ApplyForm" >
-        INSERT INTO `ApplyForm` (unitId,deviceId,applyName,deviceName,unitName,applyTime)
-        VALUES (#{unitId},#{deviceId},#{applyName},#{deviceName},#{unitName},#{applyTime})
+        INSERT INTO `ApplyForm` (unitId,deviceId,applyName,deviceName,unitName,applyTime,auditName,auditTime)
+        VALUES (#{unitId},#{deviceId},#{applyName},#{deviceName},#{unitName},#{applyTime},#{auditName},#{auditTime})
     </insert>
     <!--报修设备-->
     <insert id="repairDevice" parameterType="asset.pojo.RepairForm">
-        INSERT INTO `RepairForm`(unitId,deviceId,applyName,deviceName,unitName,repairTime)
-        VALUES (#{unitId},#{deviceId},#{applyName},#{deviceName},#{unitName},#{repairTime})
+        INSERT INTO `RepairForm`(unitId,deviceId,applyName,deviceName,unitName,repairTime,auditName,auditTime)
+        VALUES (#{unitId},#{deviceId},#{applyName},#{deviceName},#{unitName},#{repairTime},#{auditName},#{auditTime})
     </insert>
     <!--退还设备-->
     <insert id="refundDevice" parameterType="asset.pojo.RefundForm">
-        INSERT INTO `RefundForm` (unitId,deviceId,applyName,deviceName,unitName,refundTime)
-        VALUES (#{unitId},#{deviceId},#{applyName},#{deviceName},#{unitName},#{refundTime})
+        INSERT INTO `RefundForm` (unitId,deviceId,applyName,deviceName,unitName,refundTime,auditName,auditTime)
+        VALUES (#{unitId},#{deviceId},#{applyName},#{deviceName},#{unitName},#{refundTime},#{auditName},#{auditTime})
     </insert>
     <!--查询申请-->
     <select id="getApplyForm" parameterType="asset.pojo.ApplyForm" resultType="asset.pojo.ApplyForm">
-        SELECT * FROM `ApplyForm` WHERE deviceId=#{deviceId}
+        SELECT * FROM `ApplyForm` WHERE deviceId=#{deviceId} and auditName=""
     </select>
     <!--查询报修-->
     <select id="getRepairForm" parameterType="asset.pojo.RepairForm" resultType="asset.pojo.RepairForm">
-        SELECT * FROM `RepairForm` WHERE deviceId=#{deviceId}
+        SELECT * FROM `RepairForm` WHERE deviceId=#{deviceId} and auditName=""
     </select>
     <!--查询退还-->
     <select id="getRefundForm" parameterType="asset.pojo.RefundForm" resultType="asset.pojo.RefundForm">
-        SELECT * FROM `RefundForm` WHERE deviceId=#{deviceId}
+        SELECT * FROM `RefundForm` WHERE deviceId=#{deviceId} and auditName=""
     </select>
     <!--添加申请的审核人-->
     <update id="addApplyAuditName" parameterType="asset.pojo.ApplyForm">
         UPDATE `ApplyForm` SET auditName=#{auditName},auditTime=#{auditTime}
-        WHERE deviceId=#{deviceId}
+        WHERE deviceId=#{deviceId} and auditName=""
     </update>
     <!--添加报修的审核人-->
     <update id="addRepairAuditName" parameterType="asset.pojo.RepairForm">
         UPDATE `RepairForm` SET auditName=#{auditName},auditTime=#{auditTime}
-        WHERE deviceId=#{deviceId}
+        WHERE deviceId=#{deviceId} and auditName=""
     </update>
     <!--添加退还的审核人-->
     <update id="addRefundAuditName" parameterType="asset.pojo.RefundForm">
         UPDATE `RefundForm` SET auditName=#{auditName},auditTime=#{auditTime}
-        WHERE deviceId=#{deviceId}
+        WHERE deviceId=#{deviceId} and auditName=""
     </update>
     <!--设备入库-->
     <insert id="addDevice" parameterType="asset.pojo.DeviceForm">

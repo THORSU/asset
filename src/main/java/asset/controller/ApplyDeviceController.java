@@ -86,6 +86,8 @@ public class ApplyDeviceController {
 //        applyForm.setId(RandomAccessUtil.getRandom("Apply"));
         String time= DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
         applyForm.setApplyTime(time);
+        applyForm.setAuditName("");
+        applyForm.setAuditTime("");
         Integer num = deviceService.applyDevice(applyForm);
         deviceForm1.setUseStatus("3");
         int num1 = deviceService.modifyStatus(deviceForm1);
