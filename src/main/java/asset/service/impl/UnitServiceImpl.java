@@ -28,4 +28,9 @@ public class UnitServiceImpl implements IUnitService {
     public int addUnit(Unit unit) {
         return unitMapper.addUnit(unit);
     }
+
+    @Override
+    public int delUnit(Unit unit) {
+        return unitMapper.delUnit(unit);
+    }
 }

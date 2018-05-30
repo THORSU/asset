@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>删除单位信息</title>
+    <link rel="stylesheet" href="../css/delUnit.css">
+    <script src="../js/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+<div>
+    <form>
+        <div id="delUnit">
+            <div data-role="header">
+                <div class="title">删除单位信息</div>
+            </div>
+            <br>
+            <div class="content">
+                <div>
+                    <label for="unitName"></label>
+                    <input type="text" class="input" maxlength="16" autocomplete="off" placeholder="请输入要删除的单位名"
+                           id="unitName">
+                </div>
+                <br>
+                <div>
+                    <input type="button" class="delUnitButton" value="删除单位" data-inline="true" onclick="delUnit()">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function delUnit() {
+        var unitName = $("#unitName").val();
+        $.ajax({
+            type: "post",
+            url: "/asset/delUnit.form?unitName=" + unitName.trim(),
+            dataType: "html",
+            success: function (msg) {
+                if (msg == "unitName error") {
+                    alert("无此单位信息")
+                } else if (msg == "unit del success") {
+                    alert("删除成功")
+                } else if (msg == "unit del fail") {
+                    alert("删除失败")
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

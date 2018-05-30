@@ -71,6 +71,7 @@
     <delete id="delDevice" parameterType="asset.pojo.DeviceForm">
         DELETE FROM `DeviceForm` WHERE deviceId=#{deviceId}
     </delete>
+    <!--修改设备-->
     <update id="editDevice" parameterType="asset.pojo.DeviceForm">
         UPDATE `DeviceForm` SET deviceName=#{deviceName} where deviceId=#{deviceId}
     </update>

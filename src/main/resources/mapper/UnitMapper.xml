@@ -16,4 +16,7 @@
     <insert id="addUnit" parameterType="asset.pojo.Unit">
         INSERT INTO `Unit` (unitId, unitName) VALUES (#{unitId},#{unitName})
     </insert>
+    <delete id="delUnit" parameterType="asset.pojo.Unit">
+        delete from `Unit` where unitName=#{unitName}
+    </delete>
 </mapper>
