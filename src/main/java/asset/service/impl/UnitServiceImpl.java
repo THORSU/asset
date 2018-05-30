@@ -6,6 +6,8 @@ import asset.service.IUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Author:QuincySu
  * Date:Created in 2018/3/22
@@ -32,5 +34,10 @@ public class UnitServiceImpl implements IUnitService {
     @Override
     public int delUnit(Unit unit) {
         return unitMapper.delUnit(unit);
+    }
+
+    @Override
+    public List<Unit> getUnitList() {
+        return unitMapper.getUnitList();
     }
 }

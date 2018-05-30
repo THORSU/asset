@@ -26,7 +26,6 @@ public class QueryDeviceController {
     @Autowired
     private IDeviceService deviceService;
 
-    private DeviceForm deviceForm=new DeviceForm();
     private List<DeviceForm> deviceFormList=new ArrayList<>();
 
     @RequestMapping(value = "/queryDeviceList.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
@@ -35,12 +34,8 @@ public class QueryDeviceController {
         String useStatus = request.getParameter("useStatus1").trim();
         if (useStatus.equals("101")) {
             deviceFormList = deviceService.getDeviceList1();
-            // System.out.println(deviceFormList.get(1).toString());
-            //        if (useStatus.equals("101")) {
         } else {
             deviceFormList = deviceService.getDeviceLists(useStatus);
-            //System.out.println(deviceFormList.get(1).toString());
-
         }
         //把对象转换为相应字符串
         return JSON.toJSONString(deviceFormList);

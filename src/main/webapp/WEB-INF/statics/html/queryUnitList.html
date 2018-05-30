@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查询单位列表</title>
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="../css/common.css"/>
+    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/managerList.css"/>
+    <script type="text/javascript" src="../js/index.js"></script>
+</head>
+<body>
+<div class="table-box">
+    <div class="table-list">
+        <table class="content-list-table" id="unitform">
+            <tr>
+                <th></th>
+                <th><input class="table-check-all" type="checkbox" name="all"/></th>
+                <th>ID</th>
+                <th>单位ID</th>
+                <th>单位名</th>
+            </tr>
+        </table>
+    </div>
+    <div class="content-pager">
+        <table class="content-pager-table">
+            <tr>
+
+            </tr>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+    //初始化tablebox高度
+    bdyc.setTableBoxHeight();
+    bdyc.tableCheckAll();
+    bdyc.tableTrClick();
+    bdyc.tableTrCheckboxClick();
+    $(document).ready(function () {
+        $.ajax({
+            type: "post",
+            url: "/asset/queryUnitList.form",
+            dataType: "html",
+            success: function (msg) {
+                var header = "<tr>\n" +
+                    "\t\t\t\t\t\t<th></th>\n" +
+                    "\t\t\t\t\t\t<th>ID</th>\n" +
+                    "\t\t\t\t\t\t<th>设备ID</th>\n" +
+                    "\t\t\t\t\t\t<th>设备名</th>\n" +
+                    "\t\t\t\t\t</tr>";
+                var unitLists = eval('(' + msg + ')');
+                var content = "";
+                for (var i = 0, l = unitLists.length; i < l; i++) {
+                    for (var key in unitLists[i]) {
+                        if (key == "id") {
+                            content += "<tr>\n" +
+                                "\t\t\t\t\t\t<td>" + (i + 1) + "</td>\n" +
+                                "\t\t\t\t\t\t<td>" + unitLists[i][key] + "</td>\n";
+                        } else if (key == "unitId") {
+                            content += "\t\t\t\t\t\t<td>" + unitLists[i][key] + "</td>\n";
+                        } else if (key == "unitName") {
+                            content += "\t\t\t\t\t\t<td>" + unitLists[i][key] + "</td>\n";
+                        } else {
+                            content += "\t\t\t\t\t</tr>";
+                        }
+                        var unitTableLists = header + content;
+                        $("#unitform").html(unitTableLists);
+                    }
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

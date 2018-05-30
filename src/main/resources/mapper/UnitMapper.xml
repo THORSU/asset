@@ -13,10 +13,16 @@
     <select id="getUnitName" parameterType="asset.pojo.Unit" resultType="asset.pojo.Unit">
         SELECT * FROM `Unit` WHERE unitId=#{unitId}
     </select>
+    <!--添加单位信息-->
     <insert id="addUnit" parameterType="asset.pojo.Unit">
         INSERT INTO `Unit` (unitId, unitName) VALUES (#{unitId},#{unitName})
     </insert>
+    <!--删除单位信息-->
     <delete id="delUnit" parameterType="asset.pojo.Unit">
         delete from `Unit` where unitName=#{unitName}
     </delete>
+    <!--查看单位信息表-->
+    <select id="getUnitList" resultType="asset.pojo.Unit">
+        select * from `Unit`
+    </select>
 </mapper>
