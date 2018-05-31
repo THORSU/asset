@@ -10,9 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by su on 18-2-5.
- */
 @Service
 public class UserServiceImpl implements IUserService {
     @Autowired

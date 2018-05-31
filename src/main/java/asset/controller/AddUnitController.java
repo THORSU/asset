@@ -13,10 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 
-/**
- * @Author: QuincySu
- * @Date: 2018/5/7
- */
 @Controller
 @RequestMapping("/asset")
 public class AddUnitController {

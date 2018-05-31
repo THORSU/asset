@@ -1,8 +1,5 @@
 package asset.pojo;
 
-/**
- * Created by su on 18-2-5.
- */
 public class Teacher {
     private String id;
     private String name;

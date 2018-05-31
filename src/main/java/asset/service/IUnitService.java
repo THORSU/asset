@@ -4,10 +4,6 @@ import asset.pojo.Unit;
 
 import java.util.List;
 
-/**
- * Author:QuincySu
- * Date:Created in 2018/3/22
- */
 public interface IUnitService {
     //查询单位号
     public Unit getUnitId(Unit unit);

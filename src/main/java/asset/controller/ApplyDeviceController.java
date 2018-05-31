@@ -21,10 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-/**
- * Author:QuincySu
- * Date:Created in 2018/3/26
- */
 @Controller
 @RequestMapping("/asset")
 public class ApplyDeviceController {

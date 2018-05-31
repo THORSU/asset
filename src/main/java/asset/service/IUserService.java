@@ -6,9 +6,6 @@ import asset.pojo.Teacher;
 
 import java.util.List;
 
-/**
- * Created by su on 18-2-5.
- */
 public interface IUserService {
     //老师登录接口
     public Teacher teacherLogin(Teacher teacher);

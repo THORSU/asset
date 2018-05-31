@@ -1,9 +1,5 @@
 package asset.pojo;
 
-/**
- * Author:QuincySu
- * Date:Created in 2018/3/26
- */
 public class DeviceForm {
     //设备号
     private String deviceId;

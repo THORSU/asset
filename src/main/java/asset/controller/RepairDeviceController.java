@@ -19,10 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 
-/**
- * Author:QuincySu
- * Date:Created in 2018/4/11
- */
 @Controller
 @RequestMapping("/asset")
 public class RepairDeviceController {

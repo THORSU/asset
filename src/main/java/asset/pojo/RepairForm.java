@@ -1,9 +1,5 @@
 package asset.pojo;
 
-/**
- * Author:QuincySu
- * Date:Created in 2018/4/11
- */
 public class RepairForm {
     //id
     private String id;

@@ -1,9 +1,5 @@
 package asset.pojo;
 
-/**
- * Author:QuincySu
- * Date:Created in 2018/3/22
- */
 public class Unit {
     //id
     private String id;

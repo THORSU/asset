@@ -1,9 +1,5 @@
 package asset.pojo;
 
-/**
- * Author:QuincySu
- * Date:Created in 2018/3/26
- */
 //申请表
 public class ApplyForm {
     //id

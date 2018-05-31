@@ -7,10 +7,7 @@ import asset.pojo.RepairForm;
 
 import java.util.List;
 
-/**
- * Author:QuincySu
- * Date:Created in 2018/3/26
- */
+
 public interface DeviceMapper {
     //查询设备对应关系
     public DeviceForm getDevice(String deviceId);

@@ -1,9 +1,5 @@
 package asset.pojo;
 
-/**
- * Author:QuincySu
- * Date:Created in 2018/4/12
- */
 public class RefundForm {
     //id
     private String id;

@@ -3,10 +3,6 @@ package asset.utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Author:QuincySu
- * Date:Created in 2018/4/12
- */
 public class DataUtil {
     /**
      * 获取当前时间

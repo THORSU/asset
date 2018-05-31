@@ -11,10 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Author:QuincySu
- * Date:Created in 2018/3/26
- */
 @Service
 public class DeviceServiceImpl implements IDeviceService {
     @Autowired

@@ -12,10 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
-/**
- * @author: QuincySu
- * @Date: 2018/4/29
- */
+
 @Controller
 @RequestMapping("/asset")
 public class CookieController {

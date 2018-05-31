@@ -17,10 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 
-/**
- * Author:QuincySu
- * Date:Created in 2018/3/22
- */
 @Controller
 @RequestMapping("/asset")
 public class SignUpController {

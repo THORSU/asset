@@ -6,10 +6,6 @@ import asset.pojo.Teacher;
 
 import java.util.List;
 
-
-/**
- * Created by su on 18-2-5.
- */
 public interface UserMapper {
     //登录
     public Teacher teacherLogin(Teacher teacher);

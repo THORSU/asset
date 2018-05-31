@@ -15,10 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author: QuincySu
- * @Date: 2018/5/30
- */
 @Controller
 @RequestMapping("/asset")
 public class QueryUnitController {

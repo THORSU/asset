@@ -17,9 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 
 
-/**
- * Created by su on 18-2-5.
- */
 @Controller
 @RequestMapping("/asset")
 public class LoginController {
