@@ -7,7 +7,6 @@ import asset.pojo.RepairForm;
 import asset.service.IDeviceService;
 import asset.service.IUnitService;
 import asset.utils.DataUtil;
-import com.alibaba.fastjson.JSON;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -215,7 +214,7 @@ public class ManagerController {
         deviceForm.setUseStatus("1");
         String time = DataUtil.currentDate("yyyy-MM-dd HH:mm:ss");
         deviceForm.setStorageTime(time);
-        System.out.println(JSON.toJSONString(deviceName));
+        logger.info(deviceName);
         int num = deviceService.addDevice(deviceForm);
         System.out.println(num);
         if (num == 1) {

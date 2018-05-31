@@ -61,12 +61,12 @@
                 <a class="parent-list-item" href="javascript:;"><i class="fa fa-cube"></i> 设备管理 <i
                         class="fa fa-angle-left sanjiao"></i></a>
                 <ul class="son-list" style="display: none;">
+                    <li><a alt="./html/managerList.html" title="查看设备" href="javascript:;"><i
+                            class="fa fa-rotate-left"></i> 查看设备</a></li>
                     <li><a alt="./html/addDevice.html" title="增加设备" href="javascript:;"><i
                             class="fa fa-address-book"></i> 增加设备</a></li>
                     <li><a alt="./html/delDevice.html" title="删除设备" href="javascript:;"><i
                             class="fa fa-adjust"></i>删除设备</a></li>
-                    <li><a alt="./html/managerList.html" title="查看设备" href="javascript:;"><i
-                            class="fa fa-rotate-left"></i> 查看设备</a></li>
                     <li><a alt="./html/editDevice.html" title="编辑设备" href="javascript:;"><i
                             class="fa fa-rotate-left"></i> 编辑设备</a></li>
                 </ul>
@@ -86,21 +86,27 @@
             </li>
             <!--超级管理员-->
             <li style="display: none" id="ywgl">
-                <a class="parent-list-item" href="javascript:;"><i class="fa fa-cube"></i> 业务员管理 <i
+                <a class="parent-list-item" href="javascript:;"><i class="fa fa-cube"></i> 业务管理员管理 <i
                         class="fa fa-angle-left sanjiao"></i></a>
                 <ul class="son-list" style="display: none;">
-                    <li><a alt="./html/addManager.html" title="增加业务员" href="javascript:;"><i
-                            class="fa fa-address-book"></i> 增加业务员</a></li>
-                    <li><a alt="./html/delManager.html" title="删除业务员" href="javascript:;"><i class="fa fa-adjust"></i>删除业务员</a>
-                    </li>
                     <li><a alt="./html/queryManagerList.html" title="查询业务管理员" href="javascript:;"><i
                             class="fa fa-adjust"></i>查询业务管理员</a></li>
+                    <li><a alt="./html/addManager.html" title="增加业务员" href="javascript:;"><i
+                            class="fa fa-address-book"></i> 增加业务管理员</a></li>
+                    <li><a alt="./html/delManager.html" title="删除业务员" href="javascript:;"><i class="fa fa-adjust"></i>删除业务管理员</a>
+                    </li>
+                </ul>
+            </li>
+            <li style="display: none" id="dwgl">
+                <a class="parent-list-item" href="javascript:;"><i class="fa fa-cube"></i> 单位管理 <i
+                        class="fa fa-angle-left sanjiao"></i></a>
+                <ul class="son-list" style="display: none;">
+                    <li><a alt="./html/queryUnitList.html" title="查看单位" href="javascript:;"><i
+                            class="fa fa-adjust"></i>查看单位</a></li>
                     <li><a alt="./html/addUnit.html" title="增加单位" href="javascript:;"><i
                             class="fa fa-adjust"></i>增加单位</a></li>
                     <li><a alt="./html/delUnit.html" title="删除单位" href="javascript:;"><i
                             class="fa fa-adjust"></i>删除单位</a></li>
-                    <li><a alt="./html/queryUnitList.html" title="查看单位" href="javascript:;"><i class="fa fa-adjust"></i>查看单位</a>
-                    </li>
                 </ul>
             </li>
         </ul>
@@ -145,18 +151,21 @@
                     $("#sbgl1").hide();
                     $("#shgl").hide();
                     $("#ywgl").hide();
+                    $("#dwgl").hide();
                 }
                 else if (identify == "yw") {
                     $("#sbgl").hide();
                     $("#sbgl1").show();
                     $("#shgl").show();
                     $("#ywgl").hide();
+                    $("#dwgl").hide();
                 }
                 else if (identify == "super") {
                     $("#sbgl").hide();
                     $("#sbgl1").hide();
                     $("#shgl").hide();
                     $("#ywgl").show();
+                    $("#dwgl").show();
                 }
             }
         });
