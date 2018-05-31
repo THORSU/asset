@@ -47,4 +47,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getUnitId" parameterType="String" resultType="String">
 		SELECT unitId FROM Teacher WHERE name=#{username}
 	</select>
+	<!--查询业务管理员-->
+	<select id="getManagerList" resultType="asset.pojo.SenManager">
+		select * from `SenManager` where status=0
+	</select>
 </mapper> 

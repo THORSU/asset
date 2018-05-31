@@ -4,6 +4,8 @@ import asset.pojo.PriManager;
 import asset.pojo.SenManager;
 import asset.pojo.Teacher;
 
+import java.util.List;
+
 /**
  * Created by su on 18-2-5.
  */
@@ -28,4 +30,7 @@ public interface IUserService {
 
     //获取老师单位id
     public String getUnitId(String username);
+
+    //查询业务管理员
+    public List<SenManager> getManagerList();
 }

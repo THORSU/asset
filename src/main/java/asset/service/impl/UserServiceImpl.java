@@ -8,6 +8,8 @@ import asset.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by su on 18-2-5.
  */
@@ -58,5 +60,10 @@ public class UserServiceImpl implements IUserService {
     @Override
     public String getUnitId(String username) {
         return userMapper.getUnitId(username);
+    }
+
+    @Override
+    public List<SenManager> getManagerList() {
+        return userMapper.getManagerList();
     }
 }

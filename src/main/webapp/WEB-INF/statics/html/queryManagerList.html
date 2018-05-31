@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查询业务管理员列表</title>
+    <link rel="stylesheet" href="../css/common.css"/>
+    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/managerList.css"/>
+    <script type="text/javascript" src="../js/index.js"></script>
+    <script src="../js/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+<div class="table-box">
+    <div class="table-list">
+        <table class="content-list-table" id="Managerform">
+            <tr>
+                <th></th>
+                <th><input class="table-check-all" type="checkbox" name="all"/></th>
+                <th>ID</th>
+                <th>管理员名</th>
+            </tr>
+        </table>
+    </div>
+    <div class="content-pager">
+        <table class="content-pager-table">
+            <tr>
+
+            </tr>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+    //初始化tablebox高度
+    bdyc.setTableBoxHeight();
+    bdyc.tableCheckAll();
+    bdyc.tableTrClick();
+    bdyc.tableTrCheckboxClick();
+    $(document).ready(function () {
+        $.ajax({
+            type: "post",
+            url: "/asset/queryManagerList.form",
+            dataType: "html",
+            success: function (msg) {
+                var header = "<tr>\n" +
+                    "\t\t\t\t\t\t<th></th>\n" +
+                    "\t\t\t\t\t\t<th>ID</th>\n" +
+                    "\t\t\t\t\t\t<th>管理员名</th>\n" +
+                    "\t\t\t\t\t</tr>";
+                var ManagerLists = eval('(' + msg + ')');
+                var content = "";
+                for (var i = 0, l = ManagerLists.length; i < l; i++) {
+                    for (var key in ManagerLists[i]) {
+                        if (key == "id") {
+                            content += "<tr>\n" +
+                                "\t\t\t\t\t\t<td>" + (i + 1) + "</td>\n" +
+                                "\t\t\t\t\t\t<td>" + ManagerLists[i][key] + "</td>\n";
+                        } else if (key == "name") {
+                            content += "\t\t\t\t\t\t<td>" + ManagerLists[i][key] + "</td>\n";
+                        } else {
+                            content += "\t\t\t\t\t</tr>";
+                        }
+                        var ManagerTableLists = header + content;
+                        $("#Managerform").html(ManagerTableLists);
+                    }
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>
